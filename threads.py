@@ -1,57 +1,47 @@
 #encoding: UTF8
 from threading import Thread
-from Tkinter import *
+from tkinter import *
+from teste import *
 
-# class Application:
-#     def __init__(self, master=None):
-#         self.fontePadrao = ("Arial", "10")
-#         self.primeiroContainer = Frame(master, height=300, width=300)
-#         self.primeiroContainer.pack()
+def rodar():
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
+# def funcao(master=None):
+#     fontePadrao = ("Arial", "10")
+#     primeiroContainer = Frame(master)
+#     primeiroContainer.pack()
 #
-#         self.segundoContainer = Frame(master)
-#         self.segundoContainer.pack()
+#     # .titulo = Label(.primeiroContainer, text="Dados do usuário")
+#     # .titulo["font"] = ("Arial", "10", "bold")
+#     # .titulo.pack()
 #
-#         # self.titulo = Label(self.primeiroContainer, text="Dados do usuário")
-#         # self.titulo["font"] = ("Arial", "10", "bold")
-#         # self.titulo.pack()
+#     tela1 = Text(primeiroContainer, height=5, width=10)
+#     tela1.pack(side=LEFT)
 #
-#         self.nomeLabel = Label(self.segundoContainer, font=self.fontePadrao)
-#         self.nomeLabel.pack()
+#     nomeLabel = Label(primeiroContainer, font=fontePadrao)
+#     nomeLabel["width"] = 10
+#     nomeLabel["height"] = 5
+#     nomeLabel.pack()
 #
-#         self.tela1 = Text(self.primeiroContainer, height=5, width=10)
-#         self.tela1.pack(side=LEFT)
+#     def teste(event):
+#         print(tela1.get(1.0, END))
+#         if nomeLabel.cget("text") != tela1.get(1.0, END):
+#             nomeLabel.config(text = tela1.get(1.0, END))
+#
+#     tela1.bind("<KeyRelease>",teste)
+#
 #
 # class Th(Thread):
-#     def  __init__ (self, num):
+#     def  __init__ (self):
 #         Thread.__init__(self)
-#         self.num = num
 #
 #     def run(self):
-# root = Tk()
-# Application(root)
-# root.mainloop()
-#
-# a = Th(1)
-# a.start()
-# b = Th(2)
-# b.start()
-
-
-root = Tk()
-root.title('how to get text from textbox')
-
-
-#**********************************
-mystring = StringVar()
-
-####define the function that the signup button will do
-def getvalue():
-   Label(root, text=mystring.get()).grid(row=3, column=1)
-#*************************************
-
-Label(root, text="Text to get").grid(row=0, sticky=W)  #label
-Entry(root, textvariable = mystring).grid(row=0, column=1, sticky=E) #entry textbox
-
-WSignUp = Button(root, text="print text", command=getvalue).grid(row=3, column=0, sticky=W) #button
-
-root.mainloop()
+#         root = Tk()
+#         funcao(root)
+#         root.mainloop()
