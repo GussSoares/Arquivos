@@ -37,7 +37,7 @@ def soon(name, read, write):                        # processo pai
 
     root = Tk()
     interface(root)
-    root.title("Console")
+    root.title(name)
     root.mainloop()                                 # inicializa a interface
 
 
