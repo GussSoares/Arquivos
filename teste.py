@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
+    # def soon(name, read, write):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 382)
@@ -41,12 +42,11 @@ class Ui_MainWindow(object):
         self.timer1.start(1)
 
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Prompt"))
 # ======================================================================
     def teste(self):
-        print(self.lineEdit.text())
-        if self.lineEdit.text() != self.label.text():
-            self.label.setText(self.lineEdit.text())
+        self.label.setText(self.lineEdit.text())
 # ======================================================================

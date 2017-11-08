@@ -52,7 +52,6 @@ def father():
     process2.start()
 
 def main():
-
     father()
 
 if __name__ == '__main__':
