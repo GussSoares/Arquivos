@@ -4,7 +4,7 @@ from tkinter import *
 import time
 import threading
 
-def soon(name, read, write):                        # processo pai
+def son(name, read, write):                        # processo pai
     def interface(master=None):                     # criacao das janelas
         fontePadrao = ("Arial", "10")               # fonte padrao
         label = Label(master, text="Enter text")    # label de indicação
@@ -15,14 +15,14 @@ def soon(name, read, write):                        # processo pai
         def refreshWrite():                         # escrita
             while True:
                 write.send(text_box.get(1.0, END))  # captura o texto escrito
-                time.sleep(.10)                     # delay de 10ms
+            # time.sleep(.1)                     # delay de 10ms
 
         def refreshRead():                          # leitura
             while True:
                 text = read.recv()                  # cria-se uma variavel auxiliar para armazear a msg escrita
                 if text != nomeLabel.cget("text"):
                     nomeLabel.config(text=text)     # seta o label para a msg escrita
-            time.sleep(.10)                         #delay de 10ms
+            # time.sleep(.1)                         #delay de 10ms
 
         nomeLabel = Label(master, font=fontePadrao) # criacao do label q recebera a msg escrita na caixa de texto
         nomeLabel["width"] = 30
@@ -46,8 +46,8 @@ def father():
     read1, write1 = Pipe()                          # cria os pipes
     read2, write2 = Pipe()                          # cria os pipes
     # cria os processos
-    process1 = Process(target=soon, args=("SOON_1", read1, write2)) # le do 1, escreve no 2.
-    process2 = Process(target=soon, args=("SOON_2", read2, write1)) # le do 2, escreve no 1.
+    process1 = Process(target=son, args=("SOON_1", read1, write2)) # le do 1, escreve no 2.
+    process2 = Process(target=son, args=("SOON_2", read2, write1)) # le do 2, escreve no 1.
     process1.start()
     process2.start()
 

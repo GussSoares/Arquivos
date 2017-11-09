@@ -1,7 +1,7 @@
 import os
-from multiprocessing import *
-from queue import Queue
+# from multiprocessing import *
 import time
+from queue import Queue
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
 # tem o pacote e se o protocolo é TCP, UDP ou SMTP, e colocar as duas informações no buffer B12
 #
@@ -15,27 +15,38 @@ import time
 
 b12 = Queue()
 def T1(buffer):
-    package = os.popen("sudo tcpdump -i any -c 1 -v|grep proto").read()
+    i=0
+    while i<5:
+        package = os.popen("sudo tcpdump -i any -c 1 -v|grep proto").read()
 
-    # if package != "":
-    if package != "":
-        pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
-        print(pacote)
-        buffer.put(pacote)
-        # print(buffer.get())
-    else:
-        T1(buffer)
+        if package != "":
+            pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
+            print(pacote)
+            buffer.put(pacote)
+            # print(buffer.get())
+        i+=1
 
+        print(i)
+        # print(package)
 def T2(buffer):
-    print("entrou")
-    teste=buffer.get()
+    tcp=[]
+    udp=[]
+    while not buffer.empty() != False:
+        # print(len(buffer))
+        # print("entrou")
+        teste=buffer.get()
+        # buffer.put(teste)
+        if "TCP" in str(teste):
+            print("Package Received: TCP")
+            tcp.append(teste)
 
-    if "TCP" in str(teste):
-        print("tcp")
-    buffer.put(teste)
-    teste2=buffer.get()
-    if "UDP" in str(teste2):
-        print("udp")
+
+        if "UDP" in str(teste):
+            print("Package Received: UDP")
+            udp.append(teste)
+
+    print(tcp)
+    print(udp)
 
 # p1=Process(target=T1, args=(b12,))
 # p2=Process(target=T2, args=(b12,))
