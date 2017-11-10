@@ -14,6 +14,7 @@ from queue import Queue
 
 
 b12 = Queue()
+b23 = Queue()
 def T1(buffer):
     i=0
     while i<5:
@@ -23,30 +24,65 @@ def T1(buffer):
             pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
             print(pacote)
             buffer.put(pacote)
-            # print(buffer.get())
-        i+=1
+            i+=1
 
         print(i)
-        # print(package)
-def T2(buffer):
+
+def T2(buffer1_2, buffer2_3):
     tcp=[]
     udp=[]
-    while not buffer.empty() != False:
-        # print(len(buffer))
-        # print("entrou")
-        teste=buffer.get()
-        # buffer.put(teste)
-        if "TCP" in str(teste):
+
+    def media(lista, nome):
+        # print(lista, len(lista), "pacotes")
+        if len(lista) > 0:
+            # print("media do tamanho dos pacotes:", sum(lista)/len(lista))
+            return sum(lista)/len(lista)
+        else:
+            print("Nenhum Pacote {}", nome)
+            return -1
+
+    def variancia(lista, nome):
+        med = media(lista, nome)
+        soma = 0
+        variancia = 0
+        if len(lista) > 0:
+
+            for valor in lista:
+                soma += pow((valor-med), 2)
+            variancia = soma/float(len(lista))
+            return variancia
+        print("Nenhum Pacote {}", nome)
+        return -1
+
+    while not buffer1_2.empty() != False:
+        teste=str(buffer1_2.get())
+
+        if "TCP" in teste:
             print("Package Received: TCP")
-            tcp.append(teste)
+            tcp.append(sum([int(x) for x in teste.split(" ")[1:]]))
 
-
-        if "UDP" in str(teste):
+        if "UDP" in teste:
             print("Package Received: UDP")
-            udp.append(teste)
+            udp.append(sum([int(x) for x in teste.split(" ")[1:]]))
 
-    print(tcp)
-    print(udp)
+    print("PACOTES TCP:",tcp)
+    print("PACOTES UDP:",udp)
+    print("media:", media(tcp, "TCP"))
+    print("variancia:", variancia(tcp, "TCP"))
+    print("media:", media(udp, "UDP"))
+    print("variancia:", variancia(udp, "UDP"))
+
+    def cria_informacoes(lista, nome):
+        informacoes = []
+        informacoes.append(int(len(lista)))
+        informacoes.append(float(media(lista, nome)))
+        informacoes.append(float(variancia(lista, nome)))
+
+        return informacoes
+
+    print(cria_informacoes(tcp, "TCP"))
+    print(cria_informacoes(udp, "UDP"))
+
 
 # p1=Process(target=T1, args=(b12,))
 # p2=Process(target=T2, args=(b12,))
@@ -56,4 +92,4 @@ def T2(buffer):
 # p2.start()
 # p2.join()
 T1(b12)
-T2(b12)
+T2(b12, b23)
