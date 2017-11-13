@@ -36,7 +36,7 @@ def T2(buffer1_2, buffer2_3):
             # print("media do tamanho dos pacotes:", sum(lista)/len(lista))
             return sum(lista)/len(lista)
         else:
-            print("Nenhum Pacote {}", nome)
+            print("Nenhum Pacote {}".format(nome))
             return -1
 
     def variancia(lista, nome):
@@ -48,7 +48,7 @@ def T2(buffer1_2, buffer2_3):
                 soma += pow((valor-med), 2)
             variancia = soma/float(len(lista))
             return variancia
-        print("Nenhum Pacote {}", nome)
+        print("Nenhum Pacote {}".format(nome))
         return -1
 
     while not buffer1_2.empty() != False:
@@ -64,10 +64,10 @@ def T2(buffer1_2, buffer2_3):
 
     print("PACOTES TCP:",tcp)
     print("PACOTES UDP:",udp)
-    print("media:", media(tcp, "TCP"))
-    print("variancia:", variancia(tcp, "TCP"))
-    print("media:", media(udp, "UDP"))
-    print("variancia:", variancia(udp, "UDP"))
+    print("media TCP:", media(tcp, "TCP"))
+    print("variancia TCP:", variancia(tcp, "TCP"))
+    print("media UDP:", media(udp, "UDP"))
+    print("variancia UDP:", variancia(udp, "UDP"))
 
     def cria_informacoes(lista, nome):
         informacoes = []
@@ -77,10 +77,14 @@ def T2(buffer1_2, buffer2_3):
 
         return informacoes
 
-    print(cria_informacoes(tcp, "TCP"))
-    print(cria_informacoes(udp, "UDP"))
+    # print(cria_informacoes(tcp, "TCP"))
+    # print(cria_informacoes(udp, "UDP"))
+    buffer2_3.put(cria_informacoes(tcp, "TCP"))
+    buffer2_3.put(cria_informacoes(udp, "UDP"))
 
-
+    # for n in buffer2_3.queue:
+    #     print(n)
+    print(buffer2_3.qsize())
 # p1=Process(target=T1, args=(b12,))
 # p2=Process(target=T2, args=(b12,))
 # #
