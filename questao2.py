@@ -11,8 +11,6 @@ from queue import Queue
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-
-
 b12 = Queue()
 b23 = Queue()
 def T1(buffer):
@@ -46,7 +44,6 @@ def T2(buffer1_2, buffer2_3):
         soma = 0
         variancia = 0
         if len(lista) > 0:
-
             for valor in lista:
                 soma += pow((valor-med), 2)
             variancia = soma/float(len(lista))
