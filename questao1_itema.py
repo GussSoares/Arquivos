@@ -51,8 +51,5 @@ def father():
     process1.start()
     process2.start()
 
-def main():
-    father()
-
 if __name__ == '__main__':
-    main()
+    father()

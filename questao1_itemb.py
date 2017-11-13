@@ -55,12 +55,13 @@ def interface(master, v1, v2):                     # criacao das janelas
     thread1 = Thread(target=refreshWrite) # thread de escrita
     thread2 = Thread(target=refreshRead)  # thread de leitura
     thread1.start()                             # inicia a thread
-    thread2.start()                             # inicia a thread
-
+    thread2.start()
+    # thread1.join()
+    # thread2.join()
 
 
 root = Tk()
-# root.withdraw()
+root.withdraw()
 w1 = Toplevel()
 w2 = Toplevel()
 
