@@ -18,7 +18,7 @@ def _empty(i, f):
         return True
     return False
 
-def interface(master, v1, v2):                     # criacao das janelas
+def interface(root, master, v1, v2):                     # criacao das janelas
     fontePadrao = ("Arial", "10")               # fonte padrao
     label = Label(master, text="Enter text")    # label de indicação
     label.pack(side="top")                      # posicao do label
@@ -26,16 +26,14 @@ def interface(master, v1, v2):                     # criacao das janelas
     text_box.pack(side="top")                   # posicao da caixa de texto
 
     def refreshWrite():
-                                 # escrita
         while True:
             if _full(v1[1], v1[2]) is True:
                 continue
             v1[2]+=1
-            # write.send(text_box.get(1.0, END))  # captura o texto escrito
             v1[0][0] = text_box.get(1.0, END)
             time.sleep(.1000)                     # delay de 10ms
 
-    def refreshRead():                          # leitura
+    def refreshRead():
         while True:
             if _empty(v2[1], v2[2]) is True:
                 continue
@@ -51,20 +49,18 @@ def interface(master, v1, v2):                     # criacao das janelas
     nomeLabel["height"] = 10
     nomeLabel.config(wraplength=100)            # quebra de linha
     nomeLabel.pack()
+    button = Button (master, text = "Close", command = root.destroy).pack()
 
     thread1 = Thread(target=refreshWrite) # thread de escrita
     thread2 = Thread(target=refreshRead)  # thread de leitura
     thread1.start()                             # inicia a thread
     thread2.start()
-    # thread1.join()
-    # thread2.join()
-
 
 root = Tk()
 root.withdraw()
 w1 = Toplevel()
 w2 = Toplevel()
 
-interface(w1, v1, v2)
-interface(w2, v2, v1)
+interface(root, w1, v1, v2)
+interface(root, w2, v2, v1)
 root.mainloop()
