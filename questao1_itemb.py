@@ -18,7 +18,7 @@ def _empty(i, f):
         return True
     return False
 
-def interface(root, master, v1, v2):                     # criacao das janelas
+def interface(master, v1, v2):                     # criacao das janelas
     fontePadrao = ("Arial", "10")               # fonte padrao
     label = Label(master, text="Enter text")    # label de indicação
     label.pack(side="top")                      # posicao do label
@@ -49,11 +49,11 @@ def interface(root, master, v1, v2):                     # criacao das janelas
     nomeLabel["height"] = 10
     nomeLabel.config(wraplength=100)            # quebra de linha
     nomeLabel.pack()
-    button = Button (master, text = "Close", command = root.destroy).pack()
+    button = Button (master, text = "Close", command = exit).pack()
 
     thread1 = Thread(target=refreshWrite) # thread de escrita
     thread2 = Thread(target=refreshRead)  # thread de leitura
-    thread1.start()                             # inicia a thread
+    thread1.start()
     thread2.start()
 
 root = Tk()
@@ -61,6 +61,6 @@ root.withdraw()
 w1 = Toplevel()
 w2 = Toplevel()
 
-interface(root, w1, v1, v2)
-interface(root, w2, v2, v1)
+interface(w1, v1, v2)
+interface(w2, v2, v1)
 root.mainloop()
