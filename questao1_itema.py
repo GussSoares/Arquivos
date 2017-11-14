@@ -1,10 +1,10 @@
 #encoding: UTF8
 from multiprocessing import *
 from tkinter import *
-import time
+# import time
 import threading
 
-def son(name, read, write):                        # processo pai
+def son(name, read, write):                         # processo pai
     def interface(master=None):                     # criacao das janelas
         fontePadrao = ("Arial", "10")               # fonte padrao
         label = Label(master, text="Enter text")    # label de indicação
@@ -29,6 +29,7 @@ def son(name, read, write):                        # processo pai
         nomeLabel["height"] = 10
         nomeLabel.config(wraplength=100)            # quebra de linha
         nomeLabel.pack()
+        button = Button(master, text="Close", command=exit).pack()  # botao para fechar as janelas
 
         thread1 = threading.Thread(target=refreshWrite) # thread de escrita
         thread2 = threading.Thread(target=refreshRead)  # thread de leitura
