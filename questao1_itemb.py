@@ -49,7 +49,7 @@ def interface(master, v1, v2):                              # criacao das janela
     nomeLabel["height"] = 10
     nomeLabel.config(wraplength=100)                        # quebra de linha
     nomeLabel.pack()
-    button = Button (master, text = "Close", command = exit).pack()     # botao para fechar as janelas
+    button = Button(master, text="Close", command=exit).pack()     # botao para fechar as janelas
 
     thread1 = Thread(target=refreshWrite)                   # thread de escrita
     thread2 = Thread(target=refreshRead)                    # thread de leitura

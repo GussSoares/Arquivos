@@ -1,10 +1,9 @@
 #encoding: UTF8
 from multiprocessing import *
 from tkinter import *
-# import time
 import threading
 
-def son(name, read, write):                         # processo pai
+def son(name,read,write):                         # processo pai
     def interface(master=None):                     # criacao das janelas
         fontePadrao = ("Arial", "10")               # fonte padrao
         label = Label(master, text="Enter text")    # label de indicação
