@@ -8,7 +8,7 @@ def son(name,read,write):                         # processo pai
         fontePadrao = ("Arial", "10")               # fonte padrao
         label = Label(master, text="Enter text")    # label de indicação
         label.pack(side="top")                      # posicao do label
-        text_box = Text(master, height=10, width=30)# caixa de texto que recebera a escrita
+        text_box = Text(master, height=5, width=50)# caixa de texto que recebera a escrita
         text_box.pack(side="top")                   # posicao da caixa de texto
 
         def refreshWrite():                         # escrita
@@ -24,10 +24,13 @@ def son(name,read,write):                         # processo pai
             # time.sleep(.1)                         #delay de 10ms
 
         nomeLabel = Label(master, font=fontePadrao) # criacao do label q recebera a msg escrita na caixa de texto
-        nomeLabel["width"] = 30
-        nomeLabel["height"] = 10
-        nomeLabel.config(wraplength=100)            # quebra de linha
+        label = Label(master, text="Output")
+        label.pack(side="top")
+        nomeLabel["height"] = 5
+        nomeLabel["width"] = 50
+        nomeLabel.config(wraplength=350)            # quebra de linha
         nomeLabel.pack()
+
         button = Button(master, text="Close", command=exit).pack()  # botao para fechar as janelas
 
         thread1 = threading.Thread(target=refreshWrite) # thread de escrita
@@ -46,8 +49,8 @@ def father():
     read1, write1 = Pipe()                          # cria os pipes
     read2, write2 = Pipe()                          # cria os pipes
     # cria os processos
-    process1 = Process(target=son, args=("SOON_1", read1, write2)) # le do 1, escreve no 2.
-    process2 = Process(target=son, args=("SOON_2", read2, write1)) # le do 2, escreve no 1.
+    process1 = Process(target=son, args=("SON_1", read1, write2)) # le do 1, escreve no 2.
+    process2 = Process(target=son, args=("SON_2", read2, write1)) # le do 2, escreve no 1.
     process1.start()
     process2.start()
 
