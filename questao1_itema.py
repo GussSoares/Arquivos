@@ -2,6 +2,8 @@
 from multiprocessing import *
 from tkinter import *
 import threading
+import os
+import time
 
 def son(name,read,write):                         # processo pai
     def interface(master=None):                     # criacao das janelas
@@ -11,11 +13,13 @@ def son(name,read,write):                         # processo pai
         text_box = Text(master, height=5, width=50)# caixa de texto que recebera a escrita
         text_box.pack(side="top")                   # posicao da caixa de texto
 
+        time.sleep(.1)
         def refreshWrite():                         # escrita
             while True:
                 write.send(text_box.get(1.0, END))  # captura o texto escrito
             # time.sleep(.1)                     # delay de 10ms
 
+        time.sleep(.1)
         def refreshRead():                          # leitura
             while True:
                 text = read.recv()                  # cria-se uma variavel auxiliar para armazear a msg escrita
@@ -31,7 +35,7 @@ def son(name,read,write):                         # processo pai
         nomeLabel.config(wraplength=350)            # quebra de linha
         nomeLabel.pack()
 
-        button = Button(master, text="Close", command=exit).pack()  # botao para fechar as janelas
+        # button = Button(master, text="Close", command=exit).pack()  # botao para fechar as janelas
 
         thread1 = threading.Thread(target=refreshWrite) # thread de escrita
         thread2 = threading.Thread(target=refreshRead)  # thread de leitura
@@ -48,11 +52,14 @@ def father():
 
     read1, write1 = Pipe()                          # cria os pipes
     read2, write2 = Pipe()                          # cria os pipes
-    # cria os processos
-    process1 = Process(target=son, args=("SON_1", read1, write2)) # le do 1, escreve no 2.
-    process2 = Process(target=son, args=("SON_2", read2, write1)) # le do 2, escreve no 1.
-    process1.start()
-    process2.start()
+
+    p1 = os.fork()
+    if p1 == 0:
+        son("SON_1", read1, write2)
+    else:
+        p2 = os.fork()
+        if p2 == 0:
+            son("SON_2", read2, write1)
 
 if __name__ == '__main__':
     father()
