@@ -1,4 +1,4 @@
-#encoding: UTF8
+# -*- coding: utf-8 -*-
 from tkinter import *
 import time, os
 from threading import Thread, Semaphore
@@ -44,7 +44,8 @@ def interface(master,buffer1,buffer2,semaphore):            # criacao das janela
     nomeLabel.config(wraplength=350)                        # quebra de linha
     nomeLabel.pack()
     time.sleep(.1)
-    button = Button(master, text="Close", command=close).pack()
+    button = Button(master, text="Close", command=close)
+    button.pack()
 
     thread1 = Thread(target=refreshWrite, args=(semaphore, buffer1, text_box,))                      # thread de escrita
     thread2 = Thread(target=refreshRead, args=(semaphore, buffer2, nomeLabel,))                      # thread de leitura
