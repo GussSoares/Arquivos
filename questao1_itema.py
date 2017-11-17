@@ -3,6 +3,8 @@ from multiprocessing import *
 from tkinter import *
 import threading, os
 
+def close():
+    os.popen("pkill python")
 
 def refreshWrite(write, text_box):  # escrita
     while True:
@@ -31,6 +33,8 @@ def son(name,read,write):                         # processo pai
         nomeLabel["width"] = 50
         nomeLabel.config(wraplength=350)            # quebra de linha
         nomeLabel.pack()
+        button = Button(master, text="Close", command=close)
+        button.pack()
 
         thread1 = threading.Thread(target=refreshWrite, args=(write, text_box,)) # thread de escrita
         thread2 = threading.Thread(target=refreshRead, args=(read, nomeLabel,))  # thread de leitura
