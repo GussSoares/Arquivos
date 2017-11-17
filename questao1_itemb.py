@@ -52,6 +52,7 @@ def interface(master,buffer1,buffer2,semaphore):            # criacao das janela
     thread1.start()
     thread2.start()
 
+
 def main():
     root = Tk()
     w1 = Toplevel()  # cria multiplas janelas
