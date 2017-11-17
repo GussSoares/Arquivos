@@ -43,7 +43,7 @@ def interface(master,buffer1,buffer2,semaphore):            # criacao das janela
     nomeLabel["width"] = 50
     nomeLabel.config(wraplength=350)                        # quebra de linha
     nomeLabel.pack()
-    time.sleep(.1)
+    # time.sleep(.1)
     button = Button(master, text="Close", command=close)
     button.pack()
 
@@ -55,9 +55,11 @@ def interface(master,buffer1,buffer2,semaphore):            # criacao das janela
 
 def main():
     root = Tk()
+    root.title("1")
     w1 = Toplevel()  # cria multiplas janelas
+    w1.title("2")
 
-    smf1 = Semaphore()
+    smf1 = Semaphore(1)
     interface(root, buffer1, buffer2, smf1)
     interface(w1, buffer2, buffer1, smf1)
     root.mainloop()
