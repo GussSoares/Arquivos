@@ -2,6 +2,11 @@ import os
 # from multiprocessing import *
 import time
 from queue import Queue
+from threading import Thread
+import time, datetime
+import matplotlib.pyplot as plt
+import numpy as np
+
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
 # tem o pacote e se o protocolo é TCP, UDP ou SMTP, e colocar as duas informações no buffer B12
 #
@@ -11,20 +16,26 @@ from queue import Queue
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-b12 = Queue()
+b12 = Queue(6)
 b23 = Queue()
+
 def T1(buffer):
     i=0
-    while i<5:
-        package = os.popen("sudo tcpdump -i any -c 1 -v|grep proto").read()
-
+    while True:
+    # while not buffer.full():
+        package = os.popen("sudo tcpdump -i enp1s2 -c 1 -v|grep proto").read()
+        print(package)
         if package != "":
             pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
             print(pacote)
-            buffer.put(pacote)
-            i+=1
+            if ("TCP" in pacote) or ("UDP" in pacote):
+                buffer.put(pacote)
+                i+=1
 
         print(i)
+        # i = 0
+
+
 
 def T2(buffer1_2, buffer2_3):
     tcp=[]
@@ -51,6 +62,7 @@ def T2(buffer1_2, buffer2_3):
         print("Nenhum Pacote {}".format(nome))
         return -1
 
+    # while True:
     while not buffer1_2.empty() != False:
         teste=str(buffer1_2.get())
 
@@ -82,9 +94,14 @@ def T2(buffer1_2, buffer2_3):
     buffer2_3.put(cria_informacoes(tcp, "TCP"))
     buffer2_3.put(cria_informacoes(udp, "UDP"))
 
-    # for n in buffer2_3.queue:
-    #     print(n)
     print(buffer2_3.qsize())
+
+    while not buffer1_2.empty():
+        buffer1_2.get()
+    # del tcp[:]
+    # del udp[:]
+
+        # time.sleep(30)
 # p1=Process(target=T1, args=(b12,))
 # p2=Process(target=T2, args=(b12,))
 # #
@@ -92,5 +109,49 @@ def T2(buffer1_2, buffer2_3):
 # p1.join()
 # p2.start()
 # p2.join()
-T1(b12)
-T2(b12, b23)
+
+def T3(buffer2_3):
+    x = np.linspace(0, 2, 100)
+
+    while True:
+        plt.plot(x, x, label='num')
+        # plt.plot(x, x ** 2, label='media')
+        # plt.plot(x, x ** 3, label='variancia')
+
+        plt.xlabel('x label')
+        plt.ylabel('y label')
+
+        plt.title("Simple Plot")
+
+        plt.legend()
+
+        plt.show()
+        # time.sleep(30)
+
+        # lista1 = str(buffer2_3.get())
+        # print(lista1)
+
+t1 = Thread(target=T1, args=(b12,))
+t2 = Thread(target=T2, args=(b12, b23,))
+t3 = Thread(target=T3, args=(b23,))
+
+t1.start()
+# t1.join()
+y=0
+
+while True:
+    time.sleep(30-y)
+    x = time.time()
+    t2.start()
+    t2.join()
+    t3.start()
+    t3.join()
+    y = time.time() - x
+
+# t3.start()
+# t3.join()
+
+# matplot(b23)
+
+# T1(b12)
+# T2(b12, b23)
