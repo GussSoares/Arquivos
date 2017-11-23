@@ -1,10 +1,12 @@
 #encoding: UTF8
 from tkinter import *
 import time, os
-from threading import Thread, Semaphore
+from threading import Thread, Semaphore, Lock
 
 buffer1 = [""]                          # buffer1
 buffer2 = [""]                          # buffer2
+
+
 
 def interface(master,buffer1,buffer2,semaphore):                              # criacao das janelas
     fontePadrao = ("Arial", "10")                           # fonte padrao
@@ -41,26 +43,18 @@ def interface(master,buffer1,buffer2,semaphore):                              # 
     nomeLabel.config(wraplength=350)                        # quebra de linha
     nomeLabel.pack()
     time.sleep(.1)
+    # button = Button(master, text="Close", command=exit).pack()     # botao para fechar as janelas
 
     thread1 = Thread(target=refreshWrite)                   # thread de escrita
     thread2 = Thread(target=refreshRead)                    # thread de leitura
     thread1.start()
     thread2.start()
 
-    if master is None:
-        os.popen("pkill -9 python")
-        os.waitpid()
-
 root = Tk()
-w1 = Toplevel()
-root.title("Tela 1")# cria multiplas janelas
-w1.title("Tela 2")
+w1 = Toplevel()                                             # cria multiplas janelas
 
-smf1 = Semaphore()
-
+smf1 = Lock()
 interface(root, buffer1, buffer2, smf1)
 interface(w1, buffer2, buffer1, smf1)
-# print(root.state())
-
 root.mainloop()
-os.popen("pkill python")
+os.popen("pkill -9 python")
