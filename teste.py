@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from threading import Thread
-from collections import deque
+from multiprocessing import Queue
 import time, copy, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -18,8 +18,8 @@ import numpy as np
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-b12 = []                  # vetor de string de 20 posicoes
-b23 = []                  # vetor de inteiros de 9 posicoes
+b12 = Queue()                  # vetor de string de 20 posicoes
+b23 = Queue()                  # vetor de inteiros de 9 posicoes
 
 
 
@@ -33,7 +33,8 @@ def T1(buffer):
             pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
             print(pacote)
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
-                buffer.append(pacote)
+                buffer.put(pacote)
+                print("ADD")
                 i+=1
 
         print(i)
@@ -69,16 +70,19 @@ def T2(buffer1_2, buffer2_3):
 
         time.sleep(5)
 
-        while not (len(buffer2_3) == 0):
-            buffer2_3.pop()
+        while not buffer2_3.empty():
+            buffer2_3.get()
 
 
-        print("tamanho b12: ",len(buffer1_2))
-        teste=copy.copy(buffer1_2)
+        # print("tamanho b12: ",len(buffer1_2))
+        teste = []
+        while not buffer1_2.empty():
+            teste.append(buffer1_2.get())
+        #
+        # teste=copy.copy(buffer1_2)
 
-        while not (len(buffer1_2) == 0):
-            buffer1_2.pop()
-        print(teste)
+        # while not buffer1_2.empty():
+        #     buffer1_2.get()
 
         for i in teste:
 
@@ -109,19 +113,19 @@ def T2(buffer1_2, buffer2_3):
         print("variancia IGMP:", variancia(igmp, "IGMP"))
         print("============================================")
 
-        buffer2_3.append(int(len(tcp)))
-        buffer2_3.append(float(media(tcp, "TCP")))
-        buffer2_3.append(float(variancia(tcp, "TCP")))
+        buffer2_3.put(int(len(tcp)))
+        buffer2_3.put(float(media(tcp, "TCP")))
+        buffer2_3.put(float(variancia(tcp, "TCP")))
 
-        buffer2_3.append(int(len(udp)))
-        buffer2_3.append(float(media(udp, "UDP")))
-        buffer2_3.append(float(variancia(udp, "UDP")))
+        buffer2_3.put(int(len(udp)))
+        buffer2_3.put(float(media(udp, "UDP")))
+        buffer2_3.put(float(variancia(udp, "UDP")))
 
-        buffer2_3.append(int(len(igmp)))
-        buffer2_3.append(float(media(igmp, "IGMP")))
-        buffer2_3.append(float(variancia(igmp, "IGMP")))
+        buffer2_3.put(int(len(igmp)))
+        buffer2_3.put(float(media(igmp, "IGMP")))
+        buffer2_3.put(float(variancia(igmp, "IGMP")))
 
-        print(buffer2_3)
+        # print(buffer2_3)
 
 
 def T3(buffer2_3):
@@ -137,15 +141,24 @@ def T3(buffer2_3):
     y = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
     x = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
+    teste = []
+    while not buffer2_3.empty():
+        teste.append(buffer2_3.get())
+
+    for i in range(len(teste)):
+        buffer2_3.put(i)
+
+    print(teste)
+
     def animate(i):                   # i é padrao
 
-        if len(buffer2_3) != 0:
+        if len(teste) != 0:
 
             for i in range(9):
                 print("Tamanho x: ", len(x[i]))
                 print("Tamanho y: ", len(y[i]))
-                print("Tamanho buffer: ", len(buffer2_3))
-                y[i].append(buffer2_3[i])
+                print("Tamanho buffer: ", len(teste))
+                y[i].append(teste[i])
                 x[i].append(len(x[i]))
                 print(y[i])
                 print(x[i])
@@ -161,11 +174,15 @@ def T3(buffer2_3):
 
 
 
-t1 = Thread(target=T1, args=(b12,))
-t2 = Thread(target=T2, args=(b12, b23,))
-t3 = Thread(target=T3, args=(b23,))
+def main():
+    t1 = Thread(target=T1, args=(b12,))
+    t2 = Thread(target=T2, args=(b12, b23,))
+    t3 = Thread(target=T3, args=(b23,))
 
-t1.start()
-t2.start()
-t3.start()
+    t1.start()
+    t2.start()
+    t3.start()
 
+
+if __name__ == '__main__':
+    main()
