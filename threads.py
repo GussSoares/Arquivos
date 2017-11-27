@@ -1,7 +1,7 @@
 #encoding: UTF8
 from threading import Thread
 from tkinter import *
-from teste import *
+from questao2_queue import *
 
 def rodar():
     import sys

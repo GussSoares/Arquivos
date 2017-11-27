@@ -27,14 +27,14 @@ def T1(buffer):
     i=0
     while True:
 
-        package = os.popen("sudo tcpdump -i enp1s2 -c 1 -v|grep proto").read()
+        package = os.popen("sudo tcpdump -i wlx8416f90dc4b1 -c 1 -v|grep proto").read()
         print(package)
         if package != "":
             pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]
             print(pacote)
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
                 buffer.put(pacote)
-                print("ADD")
+                # print("ADD")
                 i+=1
 
         print(i)
@@ -73,16 +73,10 @@ def T2(buffer1_2, buffer2_3):
         while not buffer2_3.empty():
             buffer2_3.get()
 
-
-        # print("tamanho b12: ",len(buffer1_2))
         teste = []
         while not buffer1_2.empty():
             teste.append(buffer1_2.get())
-        #
-        # teste=copy.copy(buffer1_2)
 
-        # while not buffer1_2.empty():
-        #     buffer1_2.get()
 
         for i in teste:
 
@@ -141,16 +135,11 @@ def T3(buffer2_3):
     y = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
     x = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
-    teste = []
-    while not buffer2_3.empty():
-        teste.append(buffer2_3.get())
-
-    for i in range(len(teste)):
-        buffer2_3.put(i)
-
-    print(teste)
 
     def animate(i):                   # i é padrao
+        teste = [0]
+        while not buffer2_3.empty():
+            teste.append(buffer2_3.get())
 
         if len(teste) != 0:
 
@@ -168,7 +157,7 @@ def T3(buffer2_3):
             ax.plot(x[j], y[j], marker="s")
 
         plt.title("Grafico")
-        plt.legend(legends)
+        plt.legend(legends, loc="upper right")
     anim = animation.FuncAnimation(fig, animate, interval=5000)
     plt.show()
 
