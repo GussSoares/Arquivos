@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import os
-# from multiprocessing import *
-import time
-from queue import Queue
 from threading import Thread
-import time, datetime
+from collections import deque
+import time, copy, os
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+
 import numpy as np
 
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
@@ -18,13 +18,15 @@ import numpy as np
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-b12 = []
-b23 = []
+b12 = []                  # vetor de string de 20 posicoes
+b23 = []                  # vetor de inteiros de 9 posicoes
+
+
 
 def T1(buffer):
     i=0
     while True:
-    # while not buffer.full():
+
         package = os.popen("sudo tcpdump -i enp1s2 -c 1 -v|grep proto").read()
         print(package)
         if package != "":
@@ -35,7 +37,6 @@ def T1(buffer):
                 i+=1
 
         print(i)
-        # i = 0
 
 
 
@@ -51,7 +52,6 @@ def T2(buffer1_2, buffer2_3):
             # print("media do tamanho dos pacotes:", sum(lista)/len(lista))
             return sum(lista)/len(lista)
         else:
-            # print("Nenhum Pacote {}".format(nome))
             return 0
 
     def variancia(lista, nome):
@@ -63,117 +63,109 @@ def T2(buffer1_2, buffer2_3):
                 soma += pow((valor-med), 2)
             variancia = soma/float(len(lista))
             return variancia
-        # print("Nenhum Pacote {}".format(nome))
         return 0
 
-    while i != len(buffer1_2):
-        teste=str(buffer1_2[i])
+    while True:
 
-        if "TCP" in teste:
-            print("Package Received: TCP")
-            tcp.append(sum([int(x) for x in teste.split(" ")[1:]]))
+        time.sleep(5)
 
-        if "UDP" in teste:
-            print("Package Received: UDP")
-            udp.append(sum([int(x) for x in teste.split(" ")[1:]]))
+        while not (len(buffer2_3) == 0):
+            buffer2_3.pop()
 
-        if "IGMP" in teste:
-            print("Package Received: IGMP")
-            igmp.append(sum([int(x) for x in teste.split(" ")[1:]]))
-        i+=1
 
-    print("============================================")
-    print("PACOTES TCP:",tcp)
-    print("PACOTES UDP:",udp)
-    print("PACOTE IGMP:",igmp)
-    print("media TCP:", media(tcp, "TCP"))
-    print("variancia TCP:", variancia(tcp, "TCP"))
-    print("media UDP:", media(udp, "UDP"))
-    print("variancia UDP:", variancia(udp, "UDP"))
-    print("media IGMP:", media(igmp, "IGMP"))
-    print("variancia IGMP:", variancia(igmp, "IGMP"))
-    print("============================================")
+        print("tamanho b12: ",len(buffer1_2))
+        teste=copy.copy(buffer1_2)
 
-    def cria_informacoes(lista, nome):
-        informacoes = []
-        informacoes.append(nome)
-        informacoes.append(int(len(lista)))
-        informacoes.append(float(media(lista, nome)))
-        informacoes.append(float(variancia(lista, nome)))
+        while not (len(buffer1_2) == 0):
+            buffer1_2.pop()
+        print(teste)
 
-        return informacoes
+        for i in teste:
 
-    # print(cria_informacoes(tcp, "TCP"))
-    # print(cria_informacoes(udp, "UDP"))
+            print(i)
 
-    buffer2_3.append(cria_informacoes(tcp, "TCP"))
-    buffer2_3.append(cria_informacoes(udp, "UDP"))
-    buffer2_3.append(cria_informacoes(igmp, "IGMP"))
-    print(len(buffer2_3))
-    print(buffer2_3)
-    # print(buffer2_3.qsize())
+            if "TCP" in i:
+                print("Package Received: TCP")
+                tcp.append(sum([int(x) for x in i.split(" ")[1:]]))
 
-    while not (len(buffer1_2) == 0):
-        buffer1_2.pop()
-    # del tcp[:]
-    # del udp[:]
+            if "UDP" in i:
+                print("Package Received: UDP")
+                udp.append(sum([int(x) for x in i.split(" ")[1:]]))
+
+            if "IGMP" in i:
+                print("Package Received: IGMP")
+                igmp.append(sum([int(x) for x in i.split(" ")[1:]]))
+
+
+        print("============================================")
+        print("PACOTES TCP:",tcp)
+        print("PACOTES UDP:",udp)
+        print("PACOTE IGMP:",igmp)
+        print("media TCP:", media(tcp, "TCP"))
+        print("variancia TCP:", variancia(tcp, "TCP"))
+        print("media UDP:", media(udp, "UDP"))
+        print("variancia UDP:", variancia(udp, "UDP"))
+        print("media IGMP:", media(igmp, "IGMP"))
+        print("variancia IGMP:", variancia(igmp, "IGMP"))
+        print("============================================")
+
+        buffer2_3.append(int(len(tcp)))
+        buffer2_3.append(float(media(tcp, "TCP")))
+        buffer2_3.append(float(variancia(tcp, "TCP")))
+
+        buffer2_3.append(int(len(udp)))
+        buffer2_3.append(float(media(udp, "UDP")))
+        buffer2_3.append(float(variancia(udp, "UDP")))
+
+        buffer2_3.append(int(len(igmp)))
+        buffer2_3.append(float(media(igmp, "IGMP")))
+        buffer2_3.append(float(variancia(igmp, "IGMP")))
+
+        print(buffer2_3)
 
 
 def T3(buffer2_3):
-    index=0
-    time=5
-    while True:
-        # x_inicial_tcp_num = buffer2_3[index][1]
-        # x_inicial_tcp_med = buffer2_3[index][2]
-        # x_inicial_tcp_var = buffer2_3[index][3]
 
-        # tcp_num = np.linspace(x_inicial_tcp_num, 2, 100)
-        plt.scatter(time, buffer2_3[index][1])
-        plt.scatter(time, buffer2_3[index+1][1])
-        plt.scatter(time, buffer2_3[index+2][1])
+    fig = plt.figure()                  # tela onde joga o grafico
+    ax = fig.add_subplot(1,1,1)         #
+    legends= ["num. pacote TCP", "media pacote TCP", "variancia pacote TCP",
+              "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
+              "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-        plt.plot(time, buffer2_3[index][1])
-        plt.plot(time, buffer2_3[index + 1][1])
-        plt.plot(time, buffer2_3[index + 2][1])
-        # plt.plot(x, x, label='num')
-        # plt.plot(x, x ** 2, label='media')
-        # plt.plot(x, x ** 3, label='variancia')
+    time.sleep(5)
 
-        plt.xlabel('x label')
-        plt.ylabel('y label')
+    y = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
+    x = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
-        plt.title("Simple Plot")
+    def animate(i):                   # i é padrao
 
-        plt.legend()
+        if len(buffer2_3) != 0:
 
-        plt.show()
-        plt.pause(0.0001)
-        index += 3
-        time+=5
-        # time.sleep(5)
+            for i in range(9):
+                print("Tamanho x: ", len(x[i]))
+                print("Tamanho y: ", len(y[i]))
+                print("Tamanho buffer: ", len(buffer2_3))
+                y[i].append(buffer2_3[i])
+                x[i].append(len(x[i]))
+                print(y[i])
+                print(x[i])
+
+        ax.clear()
+        for j in range(9):
+            ax.plot(x[j], y[j], marker="s")
+
+        plt.title("Grafico")
+        plt.legend(legends)
+    anim = animation.FuncAnimation(fig, animate, interval=5000)
+    plt.show()
 
 
-        # lista1 = str(buffer2_3.get())
-        # print(lista1)
 
 t1 = Thread(target=T1, args=(b12,))
+t2 = Thread(target=T2, args=(b12, b23,))
+t3 = Thread(target=T3, args=(b23,))
 
 t1.start()
+t2.start()
+t3.start()
 
-y=0
-
-while True:
-    time.sleep(5-y)
-    x = time.time()
-
-    t2 = Thread(target=T2, args=(b12, b23,))
-    t3 = Thread(target=T3, args=(b23,))
-
-    if (not t2.is_alive()):
-        t2.start()
-        t2.join()
-
-    t3.start()
-    t3.join()
-
-    y = time.time() - x
