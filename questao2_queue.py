@@ -138,7 +138,7 @@ def T3(buffer2_3):
 
     def animate(i):                     # i é padrao
         teste = []
-        while not buffer2_3.empty():
+        while not buffer2_3.empty():                # coloca os elementos do buffer num array
             teste.append(buffer2_3.get())
 
         if len(teste) != 0:
@@ -155,7 +155,6 @@ def T3(buffer2_3):
         ax1.clear()
 
         for j in range(9):
-            # ax.plot(x[j], y[j], marker="s")
             ax1.plot(x1[j], y1[j], marker="s")
 
 
