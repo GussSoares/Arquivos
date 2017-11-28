@@ -27,7 +27,7 @@ def T1(buffer):
     i=0
     while True:
 
-        package = os.popen("sudo tcpdump -i enp1s2 -c 1 -v|grep proto").read()
+        package = os.popen("sudo tcpdump -i any -c 1 -v|grep proto").read()
         print(package)
         if package != "":
             pacote = package[package.index("proto"):].split(" ")[1] + " " + package[package.index("proto"):].split(" ")[4][:-2]

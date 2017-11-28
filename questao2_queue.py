@@ -2,7 +2,7 @@
 
 from threading import Thread
 from multiprocessing import Queue
-import time, copy, os
+import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -48,9 +48,7 @@ def T2(buffer1_2, buffer2_3):
     i=0
 
     def media(lista, nome):
-        # print(lista, len(lista), "pacotes")
         if len(lista) > 0:
-            # print("media do tamanho dos pacotes:", sum(lista)/len(lista))
             return sum(lista)/len(lista)
         else:
             return 0
@@ -119,42 +117,47 @@ def T2(buffer1_2, buffer2_3):
         buffer2_3.put(float(media(igmp, "IGMP")))
         buffer2_3.put(float(variancia(igmp, "IGMP")))
 
-        # print(buffer2_3)
-
 
 def T3(buffer2_3):
 
     fig = plt.figure()                  # tela onde joga o grafico
-    ax = fig.add_subplot(1,1,1)         #
+    # ax = fig.add_subplot(1,1,1)
+    ax1 = fig.add_subplot(111)
+
+
     legends= ["num. pacote TCP", "media pacote TCP", "variancia pacote TCP",
               "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
               "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
     time.sleep(5)
 
-    y = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
-    x = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
+    y1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
+    x1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
 
-    def animate(i):                   # i é padrao
-        teste = [0]
+
+    def animate(i):                     # i é padrao
+        teste = []
         while not buffer2_3.empty():
             teste.append(buffer2_3.get())
 
         if len(teste) != 0:
 
             for i in range(9):
-                print("Tamanho x: ", len(x[i]))
-                print("Tamanho y: ", len(y[i]))
+                print("Tamanho x: ", len(x1[i]))
+                print("Tamanho y: ", len(y1[i]))
                 print("Tamanho buffer: ", len(teste))
-                y[i].append(teste[i])
-                x[i].append(len(x[i]))
-                print(y[i])
-                print(x[i])
+                y1[i].append(teste[i])
+                x1[i].append(len(x1[i]))
 
-        ax.clear()
+
+
+        ax1.clear()
+
         for j in range(9):
-            ax.plot(x[j], y[j], marker="s")
+            # ax.plot(x[j], y[j], marker="s")
+            ax1.plot(x1[j], y1[j], marker="s")
+
 
         plt.title("Grafico")
         plt.legend(legends, loc="upper right")
