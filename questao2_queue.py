@@ -150,13 +150,10 @@ def T3(buffer2_3):
                 y1[i].append(teste[i])
                 x1[i].append(len(x1[i]))
 
-
-
         ax1.clear()
 
         for j in range(9):
             ax1.plot(x1[j], y1[j], marker="s")
-
 
         plt.title("Grafico")
         plt.legend(legends, loc="upper right")
