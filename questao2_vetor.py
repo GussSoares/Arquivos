@@ -67,7 +67,7 @@ def T2(buffer1_2, buffer2_3):
 
     while True:
 
-        time.sleep(5)
+        time.sleep(30)
 
         while not (len(buffer2_3) == 0):
             buffer2_3.pop()
@@ -132,7 +132,7 @@ def T3(buffer2_3):
               "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
               "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(5)
+    time.sleep(30)
 
     y = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
     x = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
@@ -156,7 +156,7 @@ def T3(buffer2_3):
 
         plt.title("Grafico")
         plt.legend(legends)
-    anim = animation.FuncAnimation(fig, animate, interval=5000)
+    anim = animation.FuncAnimation(fig, animate, interval=30000)
     plt.show()
 
 def main():

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from threading import Thread
+from threading import Thread, Semaphore
 from multiprocessing import Queue
 import time, os
 import matplotlib.pyplot as plt
@@ -34,14 +34,13 @@ def T1(buffer):
             print(pacote)
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
                 buffer.put(pacote)
-                # print("ADD")
                 i+=1
 
         print(i)
 
 
 
-def T2(buffer1_2, buffer2_3):
+def T2(buffer1_2, buffer2_3, semaphore):
     tcp=[]
     udp=[]
     igmp=[]
@@ -66,15 +65,15 @@ def T2(buffer1_2, buffer2_3):
 
     while True:
 
-        time.sleep(30)
-
+        time.sleep(5)
+        semaphore.acquire()
         while not buffer2_3.empty():                            # esvazia o buffer
             buffer2_3.get()
 
         teste = []
         while not buffer1_2.empty():
             teste.append(buffer1_2.get())                       # passa os elementos do buffer para a lista
-
+        semaphore.release()
 
         for i in teste:                                         # usa a lista para verificar os pacotes
 
@@ -118,7 +117,7 @@ def T2(buffer1_2, buffer2_3):
         buffer2_3.put(float(variancia(igmp, "IGMP")))
 
 
-def T3(buffer2_3):
+def T3(buffer2_3, semaphore):
 
     fig = plt.figure()                  # tela onde joga o grafico
     # ax = fig.add_subplot(1,1,1)
@@ -129,19 +128,19 @@ def T3(buffer2_3):
               "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
               "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(30)
+    time.sleep(5)
 
     y1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
     x1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
 
 
-
     def animate(i):                     # i é padrao
+        semaphore.acquire()
         teste = []
         while not buffer2_3.empty():                # coloca os elementos do buffer num array
             teste.append(buffer2_3.get())
 
-        if len(teste) != 0:
+        if len(teste) != 0:                         # testa se o array n está vazio
 
             for i in range(9):
                 print("Tamanho x: ", len(x1[i]))
@@ -155,18 +154,24 @@ def T3(buffer2_3):
         for j in range(9):
             ax1.plot(x1[j], y1[j], marker="s")
 
+        semaphore.release()
+
         plt.title("Grafico")
         plt.ylabel("Variáveis")
         plt.legend(legends, loc="upper right")
-    anim = animation.FuncAnimation(fig, animate, interval=30000)
+    anim = animation.FuncAnimation(fig, animate, interval=5000)
     plt.show()
 
 
 
 def main():
+    smf = Semaphore()
+
     t1 = Thread(target=T1, args=(b12,))
-    t2 = Thread(target=T2, args=(b12, b23,))
-    t3 = Thread(target=T3, args=(b23,))
+    t2 = Thread(target=T2, args=(b12, b23, smf,))
+    t3 = Thread(target=T3, args=(b23, smf,))
+
+
 
     t1.start()
     t2.start()
