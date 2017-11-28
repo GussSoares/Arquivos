@@ -66,17 +66,17 @@ def T2(buffer1_2, buffer2_3):
 
     while True:
 
-        time.sleep(5)
+        time.sleep(30)
 
-        while not buffer2_3.empty():
+        while not buffer2_3.empty():                            # esvazia o buffer
             buffer2_3.get()
 
         teste = []
         while not buffer1_2.empty():
-            teste.append(buffer1_2.get())
+            teste.append(buffer1_2.get())                       # passa os elementos do buffer para a lista
 
 
-        for i in teste:
+        for i in teste:                                         # usa a lista para verificar os pacotes
 
             print(i)
 
@@ -129,7 +129,7 @@ def T3(buffer2_3):
               "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
               "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(5)
+    time.sleep(30)
 
     y1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
     x1 = [[0], [0], [0], [0], [0], [0], [0], [0], [0]]
@@ -156,8 +156,9 @@ def T3(buffer2_3):
             ax1.plot(x1[j], y1[j], marker="s")
 
         plt.title("Grafico")
+        plt.ylabel("Variáveis")
         plt.legend(legends, loc="upper right")
-    anim = animation.FuncAnimation(fig, animate, interval=5000)
+    anim = animation.FuncAnimation(fig, animate, interval=30000)
     plt.show()
 
 
