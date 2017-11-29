@@ -26,7 +26,7 @@ b23 = Queue()                  # vetor de inteiros de 9 posicoes
 def T1(buffer):
     i=0
     while True:
-
+        # semaphore.acquire()
         package = os.popen("sudo tcpdump -i wlx8416f90dc4b1 -c 1 -v|grep proto").read()
         print(package)
         if package != "":
@@ -35,7 +35,7 @@ def T1(buffer):
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
                 buffer.put(pacote)
                 i+=1
-
+        # semaphore.release()
         print(i)
 
 
@@ -104,6 +104,7 @@ def T2(buffer1_2, buffer2_3, semaphore):
         print("variancia IGMP:", variancia(igmp, "IGMP"))
         print("============================================")
 
+        semaphore.acquire()
         buffer2_3.put(int(len(tcp)))
         buffer2_3.put(float(media(tcp, "TCP")))
         buffer2_3.put(float(variancia(tcp, "TCP")))
@@ -115,7 +116,7 @@ def T2(buffer1_2, buffer2_3, semaphore):
         buffer2_3.put(int(len(igmp)))
         buffer2_3.put(float(media(igmp, "IGMP")))
         buffer2_3.put(float(variancia(igmp, "IGMP")))
-
+        semaphore.release()
 
 def T3(buffer2_3, semaphore):
 

@@ -5,6 +5,7 @@ from multiprocessing import Queue
 import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.ticker import MaxNLocator
 
 
 import numpy as np
@@ -65,7 +66,7 @@ def T2(buffer1_2, buffer2_3, semaphore):
 
     while True:
 
-        time.sleep(5)
+        time.sleep(30)
         semaphore.acquire()
         while not buffer2_3.empty():                            # esvazia o buffer
             buffer2_3.get()
@@ -104,44 +105,46 @@ def T2(buffer1_2, buffer2_3, semaphore):
         print("variancia IGMP:", variancia(igmp, "IGMP"))
         print("============================================")
 
+        semaphore.acquire()
         buffer2_3.put(int(len(tcp)))
-        buffer2_3.put(float(media(tcp, "TCP")))
-        buffer2_3.put(float(variancia(tcp, "TCP")))
+        buffer2_3.put(int(media(tcp, "TCP")))
+        buffer2_3.put(int(variancia(tcp, "TCP")))
 
         buffer2_3.put(int(len(udp)))
-        buffer2_3.put(float(media(udp, "UDP")))
-        buffer2_3.put(float(variancia(udp, "UDP")))
+        buffer2_3.put(int(media(udp, "UDP")))
+        buffer2_3.put(int(variancia(udp, "UDP")))
 
         buffer2_3.put(int(len(igmp)))
-        buffer2_3.put(float(media(igmp, "IGMP")))
-        buffer2_3.put(float(variancia(igmp, "IGMP")))
-
+        buffer2_3.put(int(media(igmp, "IGMP")))
+        buffer2_3.put(int(variancia(igmp, "IGMP")))
+        semaphore.release()
 
 def T3(buffer2_3, semaphore):
 
-    fig = plt.figure()                  # tela onde joga o grafico
-    # ax = fig.add_subplot(1,1,1)
+    fig = plt.figure()                 # tela onde joga o grafico
     ax1 = fig.add_subplot(221)
     ax2 = fig.add_subplot(222)
     ax3 = fig.add_subplot(223)
 
-    legends= ["num. pacote TCP", "media pacote TCP", "variancia pacote TCP",
-              "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
-              "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
+    # legends= ["num. pacote TCP", "media pacote TCP", "variancia pacote TCP",              so pra saber a ordem como estao dispostos os valoers de b23
+    #           "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
+    #           "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(5)
+    time.sleep(30)
 
-    y1 = [[0], [0], [0]]
-    x1 = [[0], [0], [0]]
+    y1 = [[0], [0], [0]]                                                                    # valores do eixo y1
+    x1 = [[0], [0], [0]]                                                                    # valores do eixo x1
     y2 = [[0], [0], [0]]
     y3 = [[0], [0], [0]]
 
 
 
-    def animate(i):                     # i é padrao
-        semaphore.acquire()
-        teste = []
-        while not buffer2_3.empty():                # coloca os elementos do buffer num array
+    def animate(i):                                                                         # i é padrao
+
+        semaphore.acquire()                                                                 # exclusao mutua
+        teste = []                                                                          # vetor que sera uado para substiruir b23
+
+        while not buffer2_3.empty():                                                        # coloca os elementos do buffer num array
             teste.append(str(buffer2_3.get()))
 
         num = [teste[0], teste[3], teste[6]]
@@ -160,10 +163,11 @@ def T3(buffer2_3, semaphore):
                 print("Tamanho x: ", len(x1[i]))
                 print("Tamanho y: ", len(y1[i]))
                 print("Tamanho buffer: ", len(teste))
+                x1[i].append(len(x1[i]))
                 y1[i].append(num[i])
                 y2[i].append(media[i])
                 y3[i].append(variancia[i])
-                x1[i].append(len(x1[i]))
+
 
 
 
@@ -176,14 +180,21 @@ def T3(buffer2_3, semaphore):
             ax2.plot(x1[j], y2[j], marker="s")
             ax3.plot(x1[j], y3[j], marker="s")
 
-
-
         semaphore.release()
-        ax1.legend(["num tcp", "num udp", "num igmp"], loc="upper, right")
-        ax2.legend(["media tcp", "media udp", "media igmp"], loc="upper, right")
-        ax3.legend(["var tcp", "var udp", "var igmp"], loc="upper, right")
 
-    anim = animation.FuncAnimation(fig, animate, interval=5000)
+        ax1.legend(["num tcp", "num udp", "num igmp"], loc="upper right")
+        ax1.set_xlabel("tempo")
+        ax1.set_ylabel("Quantidade")
+
+        ax2.legend(["media tcp", "media udp", "media igmp"], loc="upper right")
+        ax2.set_xlabel("tempo")
+        ax2.set_ylabel("Quantidade")
+
+        ax3.legend(["var tcp", "var udp", "var igmp"], loc="upper right")
+        ax3.set_xlabel("tempo")
+        ax3.set_ylabel("Quantidade")
+
+    anim = animation.FuncAnimation(fig, animate, interval=30000)
     plt.show()
 
 
