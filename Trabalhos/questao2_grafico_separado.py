@@ -125,8 +125,6 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
         buffer2_3.put(int(variancia(igmp, "IGMP")))
         semaphore2.release()
 
-
-
 def T3(buffer2_3, semaphore2):
 
     fig = plt.figure()                 # tela onde joga o grafico
