@@ -5,10 +5,7 @@ from multiprocessing import Queue
 import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from matplotlib.ticker import MaxNLocator
 
-
-import numpy as np
 
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
 # tem o pacote e se o protocolo é TCP, UDP ou SMTP, e colocar as duas informações no buffer B12
