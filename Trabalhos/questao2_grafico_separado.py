@@ -68,7 +68,7 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
 
         while len(buffer2_3) != 0:  # esvazia o buffer
             semaphore2.acquire()
-            buffer2_3.popleft()
+            buffer2_3.  popleft()
             semaphore2.release()
 
         teste = []
