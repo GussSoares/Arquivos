@@ -1,11 +1,13 @@
 import os, subprocess
 
-def search(word):
-    var = subprocess.getoutput("ls")
-    lista = var[var.replace('\n', " ")]
-    print(lista)
-    #
-    # if word in var:
-    #     print(word)
 
-search("questao")
+def search(word):
+
+    var = str(subprocess.getoutput("ls")).split('\n')
+
+    print(var)
+
+    print(word in var)
+
+
+search("teste")
