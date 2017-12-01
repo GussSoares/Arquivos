@@ -2,10 +2,11 @@
 
 from threading import Thread, Semaphore
 from multiprocessing import Queue
-import time, os, copy
+import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from collections import deque
+
 
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
 # tem o pacote e se o protocolo é TCP, UDP ou SMTP, e colocar as duas informações no buffer B12
@@ -16,8 +17,8 @@ from collections import deque
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-b12 = deque(maxlen=9)                  # vetor de string de 20 posicoes
-b23 = deque(maxlen=9)                  # vetor de inteiros de 9 posicoes
+b12 = deque()                  # vetor de string de 20 posicoes
+b23 = deque()                  # vetor de inteiros de 9 posicoes
 
 
 
@@ -36,7 +37,6 @@ def T1(buffer, semaphore1):
                 buffer.append(pacote)
                 semaphore1.release()
                 i+=1
-
 
         print(i)
 
@@ -67,24 +67,19 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
 
     while True:
 
-        time.sleep(5)
+        time.sleep(30)
 
-        semaphore2.acquire()
         while len(buffer2_3) != 0:                            # esvazia o buffer
+            semaphore2.acquire()
             buffer2_3.pop()
-        semaphore2.release()
-
+            semaphore2.release()
 
         teste = []
 
-        semaphore1.acquire()
-        # while len(buffer1_2) != 0:
-        #     teste.append(buffer1_2.pop())                       # passa os elementos do buffer para a lista
-        teste = copy.copy(buffer1_2)
-        semaphore1.release()
-
-        # for j in teste:
-        #     buffer1_2.put(teste[j])
+        for j in buffer1_2:
+            semaphore1.acquire()
+            teste.append(buffer1_2[j])                       # passa os elementos do buffer para a lista
+            semaphore1.release()
 
         for i in teste:                                         # usa a lista para verificar os pacotes
 
@@ -129,7 +124,6 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
         buffer2_3.append(int(variancia(igmp, "IGMP")))
         semaphore2.release()
 
-
 def T3(buffer2_3, semaphore2):
 
     fig = plt.figure()                 # tela onde joga o grafico
@@ -141,7 +135,7 @@ def T3(buffer2_3, semaphore2):
     #           "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
     #           "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(5)
+    time.sleep(30)
 
     y1 = [[0], [0], [0]]                                                                    # valores do eixo y1
     x1 = [[0], [0], [0]]                                                                    # valores do eixo x1
@@ -154,12 +148,11 @@ def T3(buffer2_3, semaphore2):
 
         teste = []                                                                          # vetor que sera uado para substiruir b23
 
-        semaphore2.acquire()                                                                 # exclusao mutua
-        while len(buffer2_3) != 0:                                                        # coloca os elementos do buffer num array
-            teste.append(str(buffer2_3.pop()))
-        semaphore2.release()
+        for j in buffer2_3:                                                        # coloca os elementos do buffer num array
+            semaphore2.acquire()                                                                 # exclusao mutua
+            teste.append(str(buffer2_3[j]))
+            semaphore2.release()
 
-        print(teste, len(teste))
 
         num = [teste[0], teste[3], teste[6]]
         media = [teste[1], teste[4], teste[7]]
@@ -195,6 +188,7 @@ def T3(buffer2_3, semaphore2):
             ax3.plot(x1[j], y3[j], marker="s")
 
 
+
         ax1.legend(["num tcp", "num udp", "num igmp"], loc="upper right")
         ax1.set_xlabel("tempo")
         ax1.set_ylabel("Quantidade")
@@ -208,7 +202,7 @@ def T3(buffer2_3, semaphore2):
         ax3.set_ylabel("Quantidade")
 
     plt.tight_layout()
-    anim = animation.FuncAnimation(fig, animate, interval=5000)
+    anim = animation.FuncAnimation(fig, animate, interval=30000)
     plt.show()
 
 
@@ -217,15 +211,23 @@ def main():
     smf = Semaphore()
     smf2 = Semaphore()
 
-    t1 = Thread(target=T1, args=(b12,smf))
-    t2 = Thread(target=T2, args=(b12, b23, smf, smf2))
-    t3 = Thread(target=T3, args=(b23, smf2,))
+    p1 = os.fork()  # cria os forks
+    if p1 == 0:  # se > 0, é filho
+        T1(b12, smf)  # cria processo filho1
 
+    p2 = os.fork()
+    if p2 == 0:  # se == 0, é filho
+        T2(b12, b23, smf, smf2)  # cria processo filho 2
 
+    p3 = os.fork()
+    if p3 == 0:
+        T3(b23, smf2)
 
-    t1.start()
-    t2.start()
-    t3.start()
+    os.waitpid(os.P_ALL, 0)
+    os.popen("kill " + str(p1)).close()  # executa um kill no processo filho 1
+    os.popen("kill " + str(p2)).close()  # executa um kill no processo filho 2
+    os.popen("kill " + str(p3)).close()  # executa um kill no processo filho 3
+    os.popen("kill " + str(os.getpid())).close()  # executa um kill no processo pai
 
 
 if __name__ == '__main__':
