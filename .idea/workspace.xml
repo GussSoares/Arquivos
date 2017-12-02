@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="743f9d55-66a5-4b66-a81e-5e46459f2914" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/Trabalhos/teste.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py" afterPath="$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py" />
+      <change beforePath="$PROJECT_DIR$/Trabalhos/teste_deque.py" afterPath="$PROJECT_DIR$/Trabalhos/teste_deque.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,14 +16,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="questao2_grafico_separado.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="questao2_grafico_separado.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
-              <folding>
-                <element signature="e#25#64#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="600">
+              <caret line="160" column="0" lean-forward="true" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -38,8 +39,8 @@
       <file leaf-file-name="teste_deque.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Trabalhos/teste_deque.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3180">
-              <caret line="217" column="26" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
               <folding>
                 <element signature="e#25#64#0" expanded="true" />
               </folding>
@@ -47,13 +48,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="questao2_processo_grafico_separado.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="teste123.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/teste123.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="questao2_processo_grafico_separado.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="148" column="47" lean-forward="false" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="47" />
+            <state relative-caret-position="180">
+              <caret line="12" column="84" lean-forward="true" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
               <folding>
-                <element signature="e#25#64#0" expanded="true" />
+                <element signature="e#25#56#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,11 +116,12 @@
         <option value="$PROJECT_DIR$/Trabalhos/questao2_processo.py" />
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py" />
         <option value="$PROJECT_DIR$/Trabalhos/teste novo.py" />
-        <option value="$PROJECT_DIR$/Trabalhos/teste_deque.py" />
         <option value="$PROJECT_DIR$/Trabalhos/fepile.py" />
-        <option value="$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py" />
         <option value="$PROJECT_DIR$/Trabalhos/felipe.py" />
         <option value="$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py" />
+        <option value="$PROJECT_DIR$/Trabalhos/teste.py" />
+        <option value="$PROJECT_DIR$/Trabalhos/teste_deque.py" />
+        <option value="$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py" />
       </list>
     </option>
   </component>
@@ -130,8 +144,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -421,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512161867287</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="arquivo">
+      <created>1512161872239</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1512161872239</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -462,52 +483,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#25#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3435">
-          <caret line="233" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
-          <folding>
-            <element signature="e#25#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_processo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/questao2_vetor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2475">
-          <caret line="172" column="10" lean-forward="false" selection-start-line="172" selection-start-column="10" selection-end-line="172" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/questao2_queue.py" />
-    <entry file="file://$PROJECT_DIR$/questao2_grafico_separado.py" />
-    <entry file="file://$PROJECT_DIR$/questao2_processo.py" />
     <entry file="file://$PROJECT_DIR$/questao2_processo_grafico_separado.py" />
     <entry file="file://$PROJECT_DIR$/questao2_vetor.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -673,6 +648,37 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Trabalhos/teste novo.py" />
+    <entry file="file://$PROJECT_DIR$/Trabalhos/felipe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="64" column="33" lean-forward="true" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="160" column="0" lean-forward="true" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/questao1_itemb.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/questao1_itema.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -681,42 +687,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/teste_deque.py">
+    <entry file="file://$PROJECT_DIR$/davi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3180">
-          <caret line="217" column="26" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/davi_antigo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste_aleatorio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2508">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#25#64#0" expanded="true" />
+            <element signature="e#0#17#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/felipe.py">
+    <entry file="file://$PROJECT_DIR$/threads.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="64" column="33" lean-forward="true" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste123.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/teste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/teste_deque.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding>
+            <element signature="e#25#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="148" column="47" lean-forward="false" selection-start-line="148" selection-start-column="47" selection-end-line="148" selection-end-column="47" />
+        <state relative-caret-position="180">
+          <caret line="12" column="84" lean-forward="true" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
           <folding>
-            <element signature="e#25#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
-          <folding>
-            <element signature="e#25#64#0" expanded="true" />
+            <element signature="e#25#56#0" expanded="true" />
           </folding>
         </state>
       </provider>

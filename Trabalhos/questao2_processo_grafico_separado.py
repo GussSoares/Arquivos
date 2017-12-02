@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from threading import Thread, Semaphore
-from multiprocessing import Queue, Manager
+from threading import Semaphore
+from multiprocessing import Queue, Manager, Pipe
 import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from collections import deque
 
 # filho T1 é responsável por ler os pacotes da placa de rede, examinar quantos bytes
 # tem o pacote e se o protocolo é TCP, UDP ou SMTP, e colocar as duas informações no buffer B12
@@ -29,7 +28,7 @@ def T1(buffer, semaphore1):
             print(pacote)
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
                 semaphore1.acquire()
-                buffer.append(pacote)
+                buffer.put(pacote)
                 semaphore1.release()
                 i += 1
 
@@ -63,16 +62,16 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
 
         time.sleep(30)
 
-        while len(buffer2_3) != 0:  # esvazia o buffer
+        while not buffer2_3.empty():  # esvazia o buffer
             semaphore2.acquire()
-            buffer2_3.popleft()
+            buffer2_3.get()
             semaphore2.release()
 
         teste = []
 
-        while len(buffer1_2) != 0:
+        while not buffer1_2.empty():
             semaphore1.acquire()
-            teste.append(buffer1_2.popleft())  # passa os elementos do buffer para a lista
+            teste.append(buffer1_2.get())  # passa os elementos do buffer para a lista
             semaphore1.release()
 
         for i in teste:  # usa a lista para verificar os pacotes
@@ -104,17 +103,17 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
         print("============================================")
 
         semaphore2.acquire()
-        buffer2_3.append(int(len(tcp)))
-        buffer2_3.append(int(media(tcp, "TCP")))
-        buffer2_3.append(int(variancia(tcp, "TCP")))
+        buffer2_3.put(int(len(tcp)))
+        buffer2_3.put(int(media(tcp, "TCP")))
+        buffer2_3.put(int(variancia(tcp, "TCP")))
 
-        buffer2_3.append(int(len(udp)))
-        buffer2_3.append(int(media(udp, "UDP")))
-        buffer2_3.append(int(variancia(udp, "UDP")))
+        buffer2_3.put(int(len(udp)))
+        buffer2_3.put(int(media(udp, "UDP")))
+        buffer2_3.put(int(variancia(udp, "UDP")))
 
-        buffer2_3.append(int(len(igmp)))
-        buffer2_3.append(int(media(igmp, "IGMP")))
-        buffer2_3.append(int(variancia(igmp, "IGMP")))
+        buffer2_3.put(int(len(igmp)))
+        buffer2_3.put(int(media(igmp, "IGMP")))
+        buffer2_3.put(int(variancia(igmp, "IGMP")))
         semaphore2.release()
 
         tcp.clear()
@@ -144,9 +143,9 @@ def T3(buffer2_3, semaphore2):
         teste = []  # vetor que sera uado para substiruir b23
 
         print("BUFFER23:", buffer2_3)
-        while len(buffer2_3) != 0:  # coloca os elementos do buffer num array
+        while not buffer2_3.empty():  # coloca os elementos do buffer num array
             semaphore2.acquire()  # exclusao mutua
-            teste.append(str(buffer2_3.popleft()))
+            teste.append(str(buffer2_3.get()))
             semaphore2.release()
         print(teste, len(teste))
 
@@ -198,14 +197,17 @@ def T3(buffer2_3, semaphore2):
 
 def main():
 
-    b12 = deque()  # vetor de string de 20 posicoes
-    b23 = deque()  # vetor de inteiros de 9 posicoes
+    b12 = Queue(maxsize=100)  # vetor de string de 20 posicoes
+    b23 = Queue(maxsize=100)  # vetor de inteiros de 9 posicoes
 
     smf1 = Semaphore()
     smf2 = Semaphore()
 
     manager1 = Manager()                # pipes para enviar os buffers
     manager2 = Manager()
+
+    in1, out1 = Pipe()
+    in2, out2 = Pipe()
 
     p1 = os.fork()  # cria os forks
     if p1 == 0:  # se > 0, é filho

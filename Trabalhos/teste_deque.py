@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from threading import Thread, Semaphore
-from multiprocessing import Queue
+from multiprocessing import Queue, Pipe, Manager
 import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -20,7 +20,7 @@ b12 = deque(maxlen=100)  # vetor de string de 20 posicoes
 b23 = deque(maxlen=100)  # vetor de inteiros de 9 posicoes
 
 
-def T1(buffer, semaphore1):
+def T1(buffer, semaphore1, in1):
     i = 0
     while True:
 
@@ -33,17 +33,22 @@ def T1(buffer, semaphore1):
             if ("TCP" in pacote) or ("UDP" in pacote) or ("IGMP" in pacote):
                 semaphore1.acquire()
                 buffer.append(pacote)
+                in1.send(pacote)
                 semaphore1.release()
                 i += 1
 
         print(i)
 
 
-def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
+def T2(buffer1_2, buffer2_3, semaphore1, semaphore2, in1, out1):
     tcp = []
     udp = []
     igmp = []
     i = 0
+
+    aux = out1.recv()
+
+    print("AUX: ", aux)
 
     def media(lista, nome):
         if len(lista) > 0:
@@ -127,7 +132,7 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
         igmp.clear()
 
 
-def T3(buffer2_3, semaphore2):
+def T3(buffer2_3, semaphore2, out2):
     fig = plt.figure()  # tela onde joga o grafico
     ax1 = fig.add_subplot(221)
     ax2 = fig.add_subplot(222)
@@ -203,16 +208,32 @@ def T3(buffer2_3, semaphore2):
 
 
 def main():
-    smf = Semaphore()
+    b12 = deque()  # vetor de string de 20 posicoes
+    b23 = deque()  # vetor de inteiros de 9 posicoes
+
+    smf1 = Semaphore()
     smf2 = Semaphore()
 
-    t1 = Thread(target=T1, args=(b12, smf))
-    t2 = Thread(target=T2, args=(b12, b23, smf, smf2))
-    t3 = Thread(target=T3, args=(b23, smf2,))
+    in1, out1 = Pipe()
+    in2, out2 = Pipe()
 
-    t1.start()
-    t2.start()
-    t3.start()
+    p1 = os.fork()  # cria os forks
+    if p1 == 0:  # se > 0, é filho
+        T1(b12, smf1, in1)  # cria processo filho1
+
+    p2 = os.fork()
+    if p2 == 0:  # se == 0, é filho
+        T2(b12, b23, smf1, smf2, in1, out1)  # cria processo filho 2
+
+    p3 = os.fork()
+    if p3 == 0:
+        T3(b23, smf2, out1)
+
+    os.waitpid(os.P_ALL, 0)
+    os.popen("kill " + str(p1)).close()  # executa um kill no processo filho 1
+    os.popen("kill " + str(p2)).close()  # executa um kill no processo filho 2
+    os.popen("kill " + str(p3)).close()  # executa um kill no processo filho 3
+    os.popen("kill " + str(os.getpid())).close()  # executa um kill no processo pai
 
 
 if __name__ == '__main__':
