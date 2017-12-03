@@ -16,8 +16,7 @@ from collections import deque
 # 3 é responsável por ler o buffer B23 e mostrar e atualizar a cada 30 s uma figura na tela
 # com seis gráficos, mostrando a evolução de cada uma destas seis variáveis
 
-b12 = deque(maxlen=100)  # vetor de string de 20 posicoes
-b23 = deque(maxlen=100)  # vetor de inteiros de 9 posicoes
+
 
 
 def T1(buffer, semaphore1):
@@ -203,6 +202,10 @@ def T3(buffer2_3, semaphore2):
 
 
 def main():
+
+    b12 = deque(maxlen=100)
+    b23 = deque(maxlen=100)
+
     smf = Semaphore()
     smf2 = Semaphore()
 
