@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="743f9d55-66a5-4b66-a81e-5e46459f2914" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Trabalhos/main.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/interface.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Arquivos.iml" afterPath="$PROJECT_DIR$/.idea/Arquivos.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/interface1.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/interface2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/main.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/questao2_grafico_separado.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/questao2_processo.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/questao2_processo_grafico_separado.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/questao2_queue.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/questao2_vetor.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py" afterPath="$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,52 +21,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="trabalho3_quastao1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3_quastao1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="54" column="62" lean-forward="false" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="62" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Trabalhos/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="565">
-              <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="interface1.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Trabalhos/interface1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="interface2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Trabalhos/interface2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="66" lean-forward="false" selection-start-line="17" selection-start-column="66" selection-end-line="17" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -114,7 +72,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1440" />
+    <option name="x" value="1796" />
     <option name="width" value="912" />
     <option name="height" value="624" />
   </component>
@@ -146,6 +104,18 @@
               <item name="Arquivos" type="b2602c69:ProjectViewProjectNode" />
               <item name="Arquivos" type="462c0819:PsiDirectoryNode" />
               <item name="Trabalhos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Arquivos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Arquivos" type="462c0819:PsiDirectoryNode" />
+              <item name="Trabalhos" type="462c0819:PsiDirectoryNode" />
+              <item name="trabalho2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Arquivos" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Arquivos" type="462c0819:PsiDirectoryNode" />
+              <item name="Trabalhos" type="462c0819:PsiDirectoryNode" />
+              <item name="trabalho3" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -455,14 +425,27 @@
       <option name="project" value="LOCAL" />
       <updated>1512302850185</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="arquivo">
+      <created>1512405357762</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1512405357763</updated>
+    </task>
+    <task id="LOCAL-00025" summary="arquivo">
+      <created>1512405494219</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1512405494219</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="0" width="1440" height="900" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15351507" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15351507" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35131744" sideWeight="0.50555557" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32371393" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
@@ -723,9 +706,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2565">
           <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
-          <folding>
-            <element signature="e#25#56#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -741,16 +722,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="190" column="13" lean-forward="false" selection-start-line="190" selection-start-column="13" selection-end-line="190" selection-end-column="13" />
-          <folding>
-            <element signature="e#25#64#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/tktable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="624" column="17" lean-forward="false" selection-start-line="624" selection-start-column="17" selection-end-line="624" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -766,16 +738,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="610">
           <caret line="54" column="62" lean-forward="false" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Trabalhos/interface1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        <state relative-caret-position="475">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -783,18 +761,16 @@
     <entry file="file://$PROJECT_DIR$/Trabalhos/interface2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="17" column="66" lean-forward="false" selection-start-line="17" selection-start-column="66" selection-end-line="17" selection-end-column="66" />
+          <caret line="17" column="68" lean-forward="true" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/main.py">
+    <entry file="file://$PROJECT_DIR$/Trabalhos/tktable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="38" column="21" lean-forward="true" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="657">
+          <caret line="624" column="17" lean-forward="false" selection-start-line="624" selection-start-column="17" selection-end-line="624" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
