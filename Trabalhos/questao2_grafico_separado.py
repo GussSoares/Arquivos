@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from threading import Thread, Semaphore
-from multiprocessing import Queue, Manager
 import time, os
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
