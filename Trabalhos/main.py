@@ -22,13 +22,12 @@ def main_(path):
     interface2.MainWindow.show()
 
     list = search(ui.lineEdit.text(), path)
-    # print(list)
+
     interface2.ui.tableWidget.setRowCount(len(list)-1)
     for i in range(len(list)-1):
 
         interface2.ui.tableWidget.setItem(i,0,QtWidgets.QTableWidgetItem(list[i+1]))
 
-        # for x in range()
 
 if __name__ == '__main__':
 
