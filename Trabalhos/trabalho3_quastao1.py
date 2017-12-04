@@ -51,6 +51,6 @@ def interface2(list):
 
 
 if __name__ == '__main__':
-    print(search("deepin", "/home/gustavo/"))
-    interface("/home/gustavo/")
+    # print(search("deepin", "/home/gustavo/Área de Trabalho/GitHub/Arquivos"))
+    interface("/home/gustavo/Área de Trabalho/GitHub/Arquivos")
     # interface2()
