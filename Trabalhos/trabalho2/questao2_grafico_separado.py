@@ -62,7 +62,7 @@ def T2(buffer1_2, buffer2_3, semaphore1, semaphore2):
 
     while True:
 
-        time.sleep(5)
+        time.sleep(30)
 
         while len(buffer2_3) != 0:  # esvazia o buffer
             semaphore2.acquire()
@@ -135,7 +135,7 @@ def T3(buffer2_3, semaphore2):
     #           "num. pacote UDP", "media pacote UDP", "variancia pacote UDP",
     #           "num. pacote IGMP", "media pacote IGMP", "variancia pacote IGMP"]
 
-    time.sleep(5)
+    time.sleep(30)
 
     y1 = [[0], [0], [0]]  # valores do eixo y1
     x1 = [[0], [0], [0]]  # valores do eixo x1
@@ -196,7 +196,7 @@ def T3(buffer2_3, semaphore2):
 
     plt.axis([0, 10, 0, 10])
     plt.tight_layout()
-    anim = animation.FuncAnimation(fig, animate, interval=5000)
+    anim = animation.FuncAnimation(fig, animate, interval=30000)
     plt.show()
 
 
