@@ -7,8 +7,9 @@ import interface2
 
 
 def search(text_box, initial_path):
-    list=[""]
+    list=[]
     for path, dirs, files in os.walk(initial_path):
+        print(files)
         for f in files:
             if text_box.lower() in f.lower():
                 list.append(str(path+f))

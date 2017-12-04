@@ -14,6 +14,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(366, 323)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(130, 50, 111, 20))
+        self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(140, 140, 80, 25))
         self.pushButton.setObjectName("pushButton")
@@ -36,6 +39,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Search"))
+        self.label.setText(_translate("MainWindow", "Digite uma palavra"))
 
 
 # if __name__ == "__main__":
