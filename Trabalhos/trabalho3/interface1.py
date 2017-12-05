@@ -37,7 +37,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Busca"))
         self.pushButton.setText(_translate("MainWindow", "Search"))
         self.label.setText(_translate("MainWindow", "Digite uma palavra"))
 
