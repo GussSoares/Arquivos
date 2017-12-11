@@ -105,14 +105,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                     novaString[0],
-                                                                     novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                        novaString[0],
-                                                                        novaString[1].replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -131,10 +131,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -161,14 +165,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                     novaString[0],
-                                                                     novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                        novaString[0],
-                                                                        novaString[1].replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -187,10 +191,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -220,10 +228,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path, novaString[0], novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path, novaString[0], novaString[1].replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -241,10 +253,14 @@ def search_in_files(text_box, initial_path):
                         count_word_1 = 0
                         count_word_2 = 0
                         print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path ,f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path ,f, path, str(f).replace(".pdf", ".txt")))
+                        print(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
+                        os.popen(("pdftotext {}/{} {}/{}").format(path.replace(" ", "\ "), f.replace(" ", "\ "),
+                                                               path.replace(" ", "\ "),
+                                                               f.replace(" ", "\ ").replace(".pdf", ".txt")))
                         time.sleep(1)
-                        with open(str(path +"/"+str(f).replace(".pdf", ".txt"))) as file_txt:
+                        with open(str(path.replace(" ","\ ") +"/"+ str(f).replace(".pdf", ".txt").replace(" ", "\ "))) as file_txt:
                             print("entrou with")
                             for line in file_txt:
                                 line = line.split(" ")
@@ -275,4 +291,4 @@ def search_in_files(text_box, initial_path):
 # for f in search_in_files("interface", "/home/gustavo/Desktop/"):
 #     print(f)
 
-print(search_in_files("lista", "/home/gustavo/"))
+print(search_in_files("lista", "/home/gustavo/Área\ de\ Trabalho"))

@@ -1,5 +1,6 @@
-import sys, os, time
+import sys, os, time, subprocess
 from functools import partial
+from collections import deque
 
 from interface1 import *
 import interface2
@@ -26,222 +27,149 @@ def search_files(text_box, initial_path):
     return list
 
 
-def search_in_files(text_box, initial_path):
+def search_in_files(text_box, path):
     string = text_box.split(" ")
+    lista = []
+    lista_contadores = deque()
 
-    list = []
     count_word_1 = 0
     count_word_2 = 0
-    for path, dirs, files in os.walk(initial_path):
-        for f in files:
-            if len(string) > 1:
-                # print(str(f))
-                # faz a verificacao quando recebe mais de uma palavra na caixa de texto
-                if string[0].lower() in f.lower() and string[1].lower() in f.lower() and not (
-                        f in list) and ".pdf" in f:
-                    list.append(str(f))
-                    print("==================")
-                    print("Arquivo Adicionado")
-                    print("==================")
 
-                    # novaString = f
-                    # novaString = novaString.split(" ")
-                    # if len(novaString) > 1:
-                    #
-                    #     count_word_1 = 0
-                    #     count_word_2 = 0
-                    #     print(novaString[1])
-                    #     print(("pdftotext {}{}\ {} {}{}\ {}").format(path, novaString[0], novaString[1], path,
-                    #                                                  novaString[0],
-                    #                                                  novaString[1].replace(".pdf", ".txt")))
-                    #     os.popen(("pdftotext {}{}\ {} {}{}\ {}").format(path, novaString[0], novaString[1], path,
-                    #                                                     novaString[0],
-                    #                                                     novaString[1].replace(".pdf", ".txt")))
-                    #     time.sleep(1)
-                    #     with open(str(path + str(f).replace(".pdf", ".txt"))) as file_txt:
-                    #         print("entrou with")
-                    #         for line in file_txt:
-                    #             line = line.split(" ")
-                    #             print(line)
-                    #             for word in line:
-                    #                 if string[0].lower() in str(word).lower():
-                    #                     count_word_1 += 1
-                    #     print("count 1:", count_word_1)
-                    #     print("count 2:", count_word_2)
-                    # else:
-                    #
-                    #     count_word_1 = 0
-                    #     count_word_2 = 0
-                    #     print("entrou else")
-                    #     print(("pdftotext {}{} {}{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                    #     os.popen(("pdftotext {}{} {}{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                    #     time.sleep(1)
-                    #     with open(str(path + str(f).replace(".pdf", ".txt"))) as file_txt:
-                    #         print("entrou with")
-                    #         for line in file_txt:
-                    #             line = line.split(" ")
-                    #             print(line)
-                    #             for word in line:
-                    #                 if string[0].lower() in str(word).lower():
-                    #                     count_word_1 += 1
-                    #     print("count 1:", count_word_1)
-                    #     print("count 2:", count_word_2)
+    command = ("find {} -maxdepth 4 -type f -iname \"*.pdf\"").format(path)  # the shell command
 
-                if string[0].lower() in f.lower() and not (f in list) and ".pdf" in f:
-                    list.append(str(f))
-                    print("==================")
-                    print("Arquivo Adicionado")
-                    print("==================")
-                    novaString = f
-                    novaString = novaString.split(" ")
-                    if len(novaString) > 1:
+    p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+    out, err = p.communicate()
+    result = out.decode("UTF-8").replace("\n", "\n").split("\n")
+    for f in result:
+        # print (f.split("/")[-1])
+        # lista.append(f.split("/")[-1])
+        # lista.append(f)
+        file = f.split("/")[-1]
+        # f = f.replace(" ", "\ ")
+        a = f.replace(" ", "\ ")
+        if len(string) > 1:
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                     novaString[0],
-                                                                     novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                        novaString[0],
-                                                                        novaString[1].replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
-                                    if string[1].lower() in str(word).lower():
-                                        count_word_2 += 1
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
-                    else:
+            if string[0].lower() in file.lower() and string[1].lower() and not file in lista:
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
-                                    if string[1].lower() in str(word).lower():
-                                        count_word_2 += 1
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
+                print("\n===========================")
+                print("DUAS PALAVRAs DIGITADAS")
+                print("===========================\n")
 
-                if string[1].lower() in f.lower() and not (f in list) and ".pdf" in f:
-                    list.append(str(f))
-                    print("==================")
-                    print("Arquivo Adicionado")
-                    print("==================")
-                    novaString = f
-                    novaString = novaString.split(" ")
-                    if len(novaString) > 1:
+                count_word_1 = 0
+                count_word_2 = 0
+                lista.append(str(file))
+                print("==================")
+                print("Arquivo Adicionado")
+                print("==================")
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                     novaString[0],
-                                                                     novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path,
-                                                                        novaString[0],
-                                                                        novaString[1].replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
-                                    if string[1].lower() in str(word).lower():
-                                        count_word_2 += 1
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
-                    else:
+            if string[0].lower() in file.lower() and not file in lista:
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path, f, path, str(f).replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+ str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
-                                    if string[1].lower() in str(word).lower():
-                                        count_word_2 += 1
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
+                print("\n===========================")
+                print("ACHOU PALAVRA UM")
+                print("===========================\n")
 
-            else:
+                count_word_1 = 0
+                count_word_2 = 0
+                print(f.split("/")[-1]+"\n\n")
 
-                if (string[0].lower() in f.lower()) and not (f in list) and ".pdf" in f:
-                    list.append(str(f))
-                    print("==================")
-                    print("Arquivo Adicionado")
-                    print("==================")
+                lista.append(str(file))
 
-                    novaString = f
-                    novaString = novaString.split(" ")
-                    if len(novaString) > 1:
+                print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        # print(novaString[1])
-                        print(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path, novaString[0], novaString[1].replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{}\ {} {}/{}\ {}").format(path, novaString[0], novaString[1], path, novaString[0], novaString[1].replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
+                os.popen(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
+                time.sleep(.5)
 
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
-                    else:
+                print(a.replace(".pdf", ".txt"))
 
-                        count_word_1 = 0
-                        count_word_2 = 0
-                        print("entrou else")
-                        print(("pdftotext {}/{} {}/{}").format(path ,f, path, str(f).replace(".pdf", ".txt")))
-                        os.popen(("pdftotext {}/{} {}/{}").format(path ,f, path, str(f).replace(".pdf", ".txt")))
-                        time.sleep(1)
-                        with open(str(path +"/"+str(f).replace(".pdf", ".txt"))) as file_txt:
-                            print("entrou with")
-                            for line in file_txt:
-                                line = line.split(" ")
-                                # print(line)
-                                for word in line:
-                                    if string[0].lower() in str(word).lower():
-                                        count_word_1 += 1
-                        print("count 1:", count_word_1)
-                        print("count 2:", count_word_2)
+                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                    print("entrou with")
+                    for line in file_text:
+                        line = line.split(" ")
+                        for word in line:
+                            if string[0].lower() in str(word).lower():
+                                count_word_1 += 1
+                            if string[1].lower() in str(word).lower():
+                                count_word_2 += 1
+                print("count 1:", count_word_1)
+                print("count 2:", count_word_2)
+                lista_contadores.append(count_word_1)
+                lista_contadores.append(count_word_2)
 
-    print(len(list))
+            if string[1].lower() in file.lower() and not file in lista:
 
-    return list
+                print("\n===========================")
+                print("ACHOU PALAVRA DOIS")
+                print("===========================\n")
+
+                count_word_1 = 0
+                count_word_2 = 0
+                print(f.split("/")[-1] + "\n\n")
+
+                lista.append(str(file))
+
+                print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
+
+                os.popen(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
+                time.sleep(.5)
+
+                print(a.replace(".pdf", ".txt"))
+
+                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                    print("entrou with")
+                    for line in file_text:
+                        line = line.split(" ")
+                        for word in line:
+                            if string[0].lower() in str(word).lower():
+                                count_word_1 += 1
+                            if string[1].lower() in str(word).lower():
+                                count_word_2 += 1
+                print("count 1:", count_word_1)
+                print("count 2:", count_word_2)
+                lista_contadores.append(count_word_1)
+                lista_contadores.append(count_word_2)
+
+        else:
+
+            if string[0].lower() in file.lower() and not file in lista:
+                count_word_1 = 0
+                count_word_2 = 0
+                print("\n===========================")
+                print("APENAS UMA PALAVRA DIGITADA")
+                print("===========================\n")
+                print(f.split("/")[-1] + "\n\n")
+
+                lista.append(str(file))
+
+                print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
+
+                os.popen(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
+                time.sleep(.5)
+
+                print(a.replace(".pdf", ".txt"))
+
+                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                    print("entrou with")
+                    for line in file_text:
+                        line = line.split(" ")
+                        for word in line:
+                            if string[0].lower() in str(word).lower():
+                                count_word_1 += 1
+                print("count 1:", count_word_1)
+                print("count 2:", count_word_2)
+                lista_contadores.append(count_word_1)
+                lista_contadores.append(count_word_2)
+
+    print(len(lista))
+    m = []
+    print("contadores:", lista_contadores)
+    for y in range(len(lista)):
+        linha = []
+        for x in range(2):
+            linha.append(lista_contadores.popleft())
+        m.append(linha)
+    print(m)
+
+    return lista
 
 
 # noinspection PyTypeChecker
