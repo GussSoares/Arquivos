@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os, time
+from collections import deque
 
 
 def search_directory(text_box, initial_path):
@@ -36,6 +37,7 @@ def search_in_files(text_box, initial_path):
     list = []
     count_word_1 = 0
     count_word_2 = 0
+    lista_contadores = deque()
     for path, dirs, files in os.walk(initial_path):
         for f in files:
             if len(string) > 1:
@@ -122,6 +124,8 @@ def search_in_files(text_box, initial_path):
                                         count_word_2 += 1
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
                     else:
 
                         count_word_1 = 0
@@ -142,6 +146,8 @@ def search_in_files(text_box, initial_path):
                                         count_word_2 += 1
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
 
                 if string[1].lower() in f.lower() and not (f in list) and ".pdf" in f:
                     list.append(str(f))
@@ -174,6 +180,8 @@ def search_in_files(text_box, initial_path):
                                         count_word_2 += 1
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
                     else:
 
                         count_word_1 = 0
@@ -194,6 +202,8 @@ def search_in_files(text_box, initial_path):
                                         count_word_2 += 1
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
 
             else:
 
@@ -224,6 +234,8 @@ def search_in_files(text_box, initial_path):
 
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
                     else:
 
                         count_word_1 = 0
@@ -242,14 +254,16 @@ def search_in_files(text_box, initial_path):
                                         count_word_1 += 1
                         print("count 1:", count_word_1)
                         print("count 2:", count_word_2)
+                        lista_contadores.append(count_word_1)
+                        lista_contadores.append(count_word_2)
 
     print(len(list))
     m=[]
-
+    print("contadores:",lista_contadores)
     for y in range(len(list)):
         linha = []
         for x in range(2):
-            linha.append(count_word_1)
+            linha.append(lista_contadores.popleft())
         m.append(linha)
     print(m)
     return list
