@@ -244,14 +244,14 @@ def search_in_files(text_box, initial_path):
                         print("count 2:", count_word_2)
 
     print(len(list))
-    matriz=[[]]
+    m=[]
 
-    for i in matriz:
-        for j in i:
-            print(matriz.append(1))
-        print("\n")
-    print(matriz)
-
+    for y in range(len(list)):
+        linha = []
+        for x in range(2):
+            linha.append(count_word_1)
+        m.append(linha)
+    print(m)
     return list
     # os.popen(("pdftotext {}.pdf {}.txt ").format(file, file))
 
@@ -261,4 +261,4 @@ def search_in_files(text_box, initial_path):
 # for f in search_in_files("interface", "/home/gustavo/Desktop/"):
 #     print(f)
 
-print(search_in_files("estrutura", "/home/gustavo/"))
+print(search_in_files("lista", "/home/gustavo/"))

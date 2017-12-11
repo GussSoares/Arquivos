@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="743f9d55-66a5-4b66-a81e-5e46459f2914" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Trabalhos/trabalho3/gerar_pdf.py" afterPath="$PROJECT_DIR$/Trabalhos/trabalho3/gerar_pdf.py" />
-      <change beforePath="$PROJECT_DIR$/Trabalhos/trabalho3/main.py" afterPath="$PROJECT_DIR$/Trabalhos/trabalho3/main.py" />
       <change beforePath="$PROJECT_DIR$/Trabalhos/trabalho3/teste.py" afterPath="$PROJECT_DIR$/Trabalhos/trabalho3/teste.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="192">
@@ -28,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teste.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="teste.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3/teste.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="252" column="17" lean-forward="true" selection-start-line="252" selection-start-column="17" selection-end-line="252" selection-end-column="17" />
+            <state relative-caret-position="492">
+              <caret line="252" column="23" lean-forward="true" selection-start-line="252" selection-start-column="23" selection-end-line="252" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -122,9 +120,9 @@
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3/PDFs/gerar_pdf.py" />
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3/interface2.py" />
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3/interface1.py" />
-        <option value="$PROJECT_DIR$/Trabalhos/trabalho3/teste.py" />
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3/gerar_pdf.py" />
         <option value="$PROJECT_DIR$/Trabalhos/trabalho3/main.py" />
+        <option value="$PROJECT_DIR$/Trabalhos/trabalho3/teste.py" />
       </list>
     </option>
   </component>
@@ -132,6 +130,25 @@
     <option name="x" value="379" />
     <option name="width" value="882" />
     <option name="height" value="645" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyTypeCheckerInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -530,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512869503514</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="arquivo">
+      <created>1512951017736</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1512951017736</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -708,14 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3/teste.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="252" column="17" lean-forward="true" selection-start-line="252" selection-start-column="17" selection-end-line="252" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -723,6 +739,14 @@
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Trabalhos/trabalho3/teste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="252" column="23" lean-forward="true" selection-start-line="252" selection-start-column="23" selection-end-line="252" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
