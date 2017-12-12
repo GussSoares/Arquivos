@@ -29,8 +29,8 @@ def search_files(text_box, initial_path):
 
 def search_in_files(text_box, path):
     string = text_box.split(" ")
-    lista = []
-    lista_contadores = deque()
+    lista = deque()
+    lista_contadores = []
 
     count_word_1 = 0
     count_word_2 = 0
@@ -49,7 +49,7 @@ def search_in_files(text_box, path):
         a = f.replace(" ", "\ ")
         if len(string) > 1:
 
-            if string[0].lower() in file.lower() and string[1].lower() and not file in lista:
+            if string[0].lower() in file.lower() and string[1].lower() in file.lower() and not f in lista:
 
                 print("\n===========================")
                 print("DUAS PALAVRAs DIGITADAS")
@@ -57,12 +57,20 @@ def search_in_files(text_box, path):
 
                 count_word_1 = 0
                 count_word_2 = 0
-                lista.append(str(file))
-                print("==================")
-                print("Arquivo Adicionado")
-                print("==================")
+                count_word_1 += 1
+                count_word_2 += 1
 
-            if string[0].lower() in file.lower() and not file in lista:
+                lista.appendleft(str(f))
+                print(f.split("/")[-1] + "\n\n")
+                lista_contadores.append(count_word_1+count_word_2)
+                print("relevancia =", count_word_1 + count_word_2)
+                # lista_contadores.append(count_word_2)
+
+                # print("==================")
+                # print("Arquivo Adicionado")
+                # print("==================")
+
+            if string[0].lower() in file.lower() and not f in lista:
 
                 print("\n===========================")
                 print("ACHOU PALAVRA UM")
@@ -72,7 +80,7 @@ def search_in_files(text_box, path):
                 count_word_2 = 0
                 print(f.split("/")[-1]+"\n\n")
 
-                lista.append(str(file))
+                lista.append(str(f))
 
                 print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
 
@@ -92,10 +100,11 @@ def search_in_files(text_box, path):
                                 count_word_2 += 1
                 print("count 1:", count_word_1)
                 print("count 2:", count_word_2)
-                lista_contadores.append(count_word_1)
-                lista_contadores.append(count_word_2)
+                lista_contadores.append(count_word_1+count_word_2)
+                # lista_contadores.append(count_word_2)
+                print("relevancia =", count_word_1 + count_word_2)
 
-            if string[1].lower() in file.lower() and not file in lista:
+            if string[1].lower() in file.lower() and not f in lista:
 
                 print("\n===========================")
                 print("ACHOU PALAVRA DOIS")
@@ -105,7 +114,7 @@ def search_in_files(text_box, path):
                 count_word_2 = 0
                 print(f.split("/")[-1] + "\n\n")
 
-                lista.append(str(file))
+                lista.append(str(f))
 
                 print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
 
@@ -125,12 +134,13 @@ def search_in_files(text_box, path):
                                 count_word_2 += 1
                 print("count 1:", count_word_1)
                 print("count 2:", count_word_2)
-                lista_contadores.append(count_word_1)
-                lista_contadores.append(count_word_2)
+                lista_contadores.append(count_word_1+count_word_2)
+                # lista_contadores.append(count_word_2)
+                print("relevancia =", count_word_1 + count_word_2)
 
         else:
 
-            if string[0].lower() in file.lower() and not file in lista:
+            if string[0].lower() in file.lower() and not f in lista:
                 count_word_1 = 0
                 count_word_2 = 0
                 print("\n===========================")
@@ -138,7 +148,7 @@ def search_in_files(text_box, path):
                 print("===========================\n")
                 print(f.split("/")[-1] + "\n\n")
 
-                lista.append(str(file))
+                lista.append(str(f))
 
                 print(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
 
@@ -156,21 +166,57 @@ def search_in_files(text_box, path):
                                 count_word_1 += 1
                 print("count 1:", count_word_1)
                 print("count 2:", count_word_2)
-                lista_contadores.append(count_word_1)
-                lista_contadores.append(count_word_2)
+                lista_contadores.append(count_word_1+count_word_2)
+                # lista_contadores.append(count_word_2)
+                print("relevancia =", count_word_1+count_word_2)
 
+    print("lista contadores:", lista_contadores)
     print(len(lista))
-    m = []
-    print("contadores:", lista_contadores)
-    for y in range(len(lista)):
-        linha = []
-        for x in range(2):
-            linha.append(lista_contadores.popleft())
-        m.append(linha)
-    print(m)
 
-    return lista
 
+    def ordenar(lista, lista_contadores):
+        lista_ordenada_arquivos = deque()
+        lista_ordenada_count = deque()
+
+        principal = lista[0]
+        while max(lista_contadores) != -1:
+            for i in range(len(lista_contadores)):
+                if lista_contadores[i] == max(lista_contadores):
+                    lista_ordenada_arquivos.append(lista[i])
+                    lista_ordenada_count.appendleft(lista_contadores[i])
+                    print(lista[i])
+                    # lista_contadores.remove(lista_contadores[i])
+                    lista_contadores[i]=-1
+                    # lista.remove(lista[i])
+        if len(string) > 1:
+            if string[0] in principal and string[1] in principal:
+                if principal in lista_ordenada_arquivos:
+                    lista_ordenada_arquivos.remove(principal)
+                lista_ordenada_arquivos.appendleft(principal)
+        else:
+
+            pass
+
+        return (lista_ordenada_arquivos, lista_ordenada_count)
+
+    result = ordenar(lista, lista_contadores)
+    print("RETORNO 1",result[0])
+    print("RETORNO 2", result[1])
+    print("Lista Ordenada: ",result)
+
+    return result
+
+def insere_tabel(path):
+    list = search_in_files(ui.lineEdit.text(), path)[0]
+    count = search_in_files(ui.lineEdit.text(),path)[1]
+    print("COUNT:",count)
+    print("LEN LIST: ", len(list))
+    interface2.ui.tableWidget_2.setRowCount(len(list))
+    # interface2.ui.tableWidget_2.setColumnCount(2)
+    for i in range(len(list)):
+        # for j in range(2):
+        interface2.ui.tableWidget_2.setItem(i, 0, QtWidgets.QTableWidgetItem(list[i]))
+            # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
 
 # noinspection PyTypeChecker
 def main_(path):
@@ -183,12 +229,10 @@ def main_(path):
     # cria um vetor de palavras
     word = ui.lineEdit.text().split(" ")
 
-    list = search_in_files(ui.lineEdit.text(), path)
+    print("SEARCH: ",search_in_files(ui.lineEdit.text(), path))
 
-    interface2.ui.tableWidget.setRowCount(len(list))
-    for i in range(len(list)):
-
-        interface2.ui.tableWidget.setItem(i,0,QtWidgets.QTableWidgetItem(list[i]))
+    insere_tabel(path)
+            # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(m[i][j]))
 
 
 if __name__ == '__main__':
