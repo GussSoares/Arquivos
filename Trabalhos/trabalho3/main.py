@@ -31,6 +31,7 @@ def search_in_files(text_box, path):
     string = text_box.split(" ")
     lista = deque()
     lista_contadores = []
+    lista_contadores_separados = []
 
     count_word_1 = 0
     count_word_2 = 0
@@ -63,7 +64,10 @@ def search_in_files(text_box, path):
                 lista.appendleft(str(f))
                 print(f.split("/")[-1] + "\n\n")
                 lista_contadores.append(count_word_1+count_word_2)
+
                 print("relevancia =", count_word_1 + count_word_2)
+                lista_contadores_separados.append(count_word_1)
+                lista_contadores_separados.append(count_word_2)
                 # lista_contadores.append(count_word_2)
 
                 # print("==================")
@@ -103,6 +107,8 @@ def search_in_files(text_box, path):
                 lista_contadores.append(count_word_1+count_word_2)
                 # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1 + count_word_2)
+                lista_contadores_separados.append(count_word_1)
+                lista_contadores_separados.append(count_word_2)
 
             if string[1].lower() in file.lower() and not f in lista:
 
@@ -137,6 +143,8 @@ def search_in_files(text_box, path):
                 lista_contadores.append(count_word_1+count_word_2)
                 # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1 + count_word_2)
+                lista_contadores_separados.append(count_word_1)
+                lista_contadores_separados.append(count_word_2)
 
         else:
 
@@ -169,6 +177,8 @@ def search_in_files(text_box, path):
                 lista_contadores.append(count_word_1+count_word_2)
                 # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1+count_word_2)
+                lista_contadores_separados.append(count_word_1)
+                lista_contadores_separados.append(count_word_2)
 
     print("lista contadores:", lista_contadores)
     print(len(lista))
@@ -212,11 +222,16 @@ def insere_tabel(path):
     print("COUNT:",count)
     print("LEN LIST: ", len(list))
     interface2.ui.tableWidget_2.setRowCount(len(list))
+    interface2.ui.tableWidget_3.setRowCount(len(count))
     # interface2.ui.tableWidget_2.setColumnCount(2)
     for i in range(len(list)):
         # for j in range(2):
         interface2.ui.tableWidget_2.setItem(i, 0, QtWidgets.QTableWidgetItem(list[i]))
             # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
+    for j in range(len(count)):
+        for k in range(2):
+            interface2.ui.tableWidget_3.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
+
 
 # noinspection PyTypeChecker
 def main_(path):
