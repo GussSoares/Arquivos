@@ -182,7 +182,7 @@ def search_in_files(text_box, path):
         primeiros = []
         if len(string) > 1:
             for i in range(len(lista)):
-                if string[0].lower() in lista[i].lower() and string[1].lower() in lista[i].lower():
+                if string[0].lower() in lista[i].split("/")[-1].lower() and string[1].lower() in lista[i].lower():
                     primeiros.append(lista[i])
 
         while max(lista_contadores) != -1:
@@ -261,7 +261,7 @@ def insere_tabel(path):
 
 # noinspection PyTypeChecker
 def main_(path):
-
+    # time.sleep(0.5)
     interface2.MainWindow = QtWidgets.QMainWindow()
     interface2.ui = interface2.Ui_MainWindow()
     interface2.ui.setupUi(interface2.MainWindow)
@@ -284,6 +284,6 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
     MainWindow.show()
 
-    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/Área\ de\ Trabalho"))
+    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/"))
 
     sys.exit(app.exec_())
