@@ -182,7 +182,7 @@ def search_in_files(text_box, path):
         primeiros = []
         if len(string) > 1:
             for i in range(len(lista)):
-                if string[0].lower() in lista[i].split("/")[-1].lower() and string[1].lower() in lista[i].lower():
+                if string[0].lower() in lista[i].split("/")[-1].lower() and string[1].lower() in lista[i].split("/")[-1].lower():
                     primeiros.append(lista[i])
 
         while max(lista_contadores) != -1:
