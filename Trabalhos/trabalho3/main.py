@@ -36,17 +36,15 @@ def search_in_files(text_box, path):
     count_word_1 = 0
     count_word_2 = 0
 
-    command = ("find {} -maxdepth 4 -type f -iname \"*.pdf\"").format(path)  # the shell command
+    command = ("find {} -maxdepth 8 -type f -iname \"*.pdf\"").format(path)  # the shell command
 
     p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
     out, err = p.communicate()
     result = out.decode("UTF-8").replace("\n", "\n").split("\n")
     for f in result:
-        # print (f.split("/")[-1])
-        # lista.append(f.split("/")[-1])
-        # lista.append(f)
+
         file = f.split("/")[-1]
-        # f = f.replace(" ", "\ ")
+
         a = f.replace(" ", "\ ")
         if len(string) > 1:
 
@@ -58,21 +56,15 @@ def search_in_files(text_box, path):
 
                 count_word_1 = 0
                 count_word_2 = 0
-                count_word_1 += 1
-                count_word_2 += 1
+                count_word_1 += 999
+                count_word_2 += 999
 
                 lista.appendleft(str(f))
                 print(f.split("/")[-1] + "\n\n")
                 lista_contadores.append(count_word_1+count_word_2)
 
                 print("relevancia =", count_word_1 + count_word_2)
-                lista_contadores_separados.append(count_word_1)
-                lista_contadores_separados.append(count_word_2)
-                # lista_contadores.append(count_word_2)
-
-                # print("==================")
-                # print("Arquivo Adicionado")
-                # print("==================")
+                lista_contadores_separados.append((count_word_1, count_word_2))
 
             if string[0].lower() in file.lower() and not f in lista:
 
@@ -93,7 +85,7 @@ def search_in_files(text_box, path):
 
                 print(a.replace(".pdf", ".txt"))
 
-                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                with open(str(f.replace(".pdf", ".txt"))) as file_text:
                     print("entrou with")
                     for line in file_text:
                         line = line.split(" ")
@@ -105,10 +97,9 @@ def search_in_files(text_box, path):
                 print("count 1:", count_word_1)
                 print("count 2:", count_word_2)
                 lista_contadores.append(count_word_1+count_word_2)
-                # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1 + count_word_2)
-                lista_contadores_separados.append(count_word_1)
-                lista_contadores_separados.append(count_word_2)
+                lista_contadores_separados.append((count_word_1, count_word_2))
+
 
             if string[1].lower() in file.lower() and not f in lista:
 
@@ -129,7 +120,7 @@ def search_in_files(text_box, path):
 
                 print(a.replace(".pdf", ".txt"))
 
-                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                with open(str(f.replace(".pdf", ".txt"))) as file_text:
                     print("entrou with")
                     for line in file_text:
                         line = line.split(" ")
@@ -141,10 +132,9 @@ def search_in_files(text_box, path):
                 print("count 1:", count_word_1)
                 print("count 2:", count_word_2)
                 lista_contadores.append(count_word_1+count_word_2)
-                # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1 + count_word_2)
-                lista_contadores_separados.append(count_word_1)
-                lista_contadores_separados.append(count_word_2)
+                lista_contadores_separados.append((count_word_1, count_word_2))
+
 
         else:
 
@@ -165,7 +155,7 @@ def search_in_files(text_box, path):
 
                 print(a.replace(".pdf", ".txt"))
 
-                with open(str(a.replace(".pdf", ".txt").replace("\\", ""))) as file_text:
+                with open(str(f.replace(".pdf", ".txt"))) as file_text:
                     print("entrou with")
                     for line in file_text:
                         line = line.split(" ")
@@ -177,9 +167,9 @@ def search_in_files(text_box, path):
                 lista_contadores.append(count_word_1+count_word_2)
                 # lista_contadores.append(count_word_2)
                 print("relevancia =", count_word_1+count_word_2)
-                lista_contadores_separados.append(count_word_1)
-                lista_contadores_separados.append(count_word_2)
+                lista_contadores_separados.append((count_word_1, count_word_2))
 
+    print("Lista contadores separados:", lista_contadores_separados)
     print("lista contadores:", lista_contadores)
     print(len(lista))
 
@@ -187,32 +177,68 @@ def search_in_files(text_box, path):
     def ordenar(lista, lista_contadores):
         lista_ordenada_arquivos = deque()
         lista_ordenada_count = deque()
+        lista_ordenada_count_separado = []
 
-        principal = lista[0]
+        primeiros = []
+        if len(string) > 1:
+            for i in range(len(lista)):
+                if string[0].lower() in lista[i].lower() and string[1].lower() in lista[i].lower():
+                    primeiros.append(lista[i])
+
         while max(lista_contadores) != -1:
             for i in range(len(lista_contadores)):
                 if lista_contadores[i] == max(lista_contadores):
                     lista_ordenada_arquivos.append(lista[i])
-                    lista_ordenada_count.appendleft(lista_contadores[i])
+                    lista_ordenada_count.append(lista_contadores[i])
+                    lista_ordenada_count_separado.append(lista_contadores_separados[i])
                     print(lista[i])
                     # lista_contadores.remove(lista_contadores[i])
                     lista_contadores[i]=-1
-                    # lista.remove(lista[i])
+                    lista_contadores_separados[i] = -1
+                    lista[i] = "vazio"
+
+        for i in range(len(lista_contadores)):
+            if "vazio" in lista_ordenada_arquivos:
+                lista_ordenada_arquivos.remove("vazio")
+
+            if -1 in lista_ordenada_count:
+                lista_ordenada_count.remove(-1)
+
+            if -1 in lista_ordenada_count_separado:
+                lista_ordenada_count_separado.remove(-1)
+
+        print("=================================================================")
+        print("\n\nlista:", lista)
+        print("lista contadores:", lista_contadores)
+        print("lista contadores separados:", lista_contadores_separados)
+        print("\nlista ordenada arquivos: ", lista_ordenada_arquivos, "\n\n")
+        print("\n")
+        print("\nlista ordenada arquivos: ", lista_ordenada_arquivos)
+        print("\nlista ordenada cont:", lista_ordenada_count)
+        print("\nlista ordenada count separado:", lista_ordenada_count_separado, "\n")
+        print("=================================================================")
+
         if len(string) > 1:
-            if string[0] in principal and string[1] in principal:
-                if principal in lista_ordenada_arquivos:
-                    lista_ordenada_arquivos.remove(principal)
-                lista_ordenada_arquivos.appendleft(principal)
+            for i in range(len(lista_ordenada_count)):
+                if string[0].lower() in lista_ordenada_arquivos[i].lower() and string[1].lower() in lista_ordenada_arquivos[i].lower():
+                    lista_ordenada_arquivos[i] = 0
+            for i in range(len(lista_ordenada_count)):
+                if 0 in lista_ordenada_arquivos:
+                    lista_ordenada_arquivos.remove(0)
+
+            for j in range(len(primeiros)):
+                lista_ordenada_arquivos.appendleft(primeiros[j])
+
+
         else:
 
             pass
 
-        return (lista_ordenada_arquivos, lista_ordenada_count)
+        return (lista_ordenada_arquivos, lista_ordenada_count_separado)
 
     result = ordenar(lista, lista_contadores)
     print("RETORNO 1",result[0])
     print("RETORNO 2", result[1])
-    print("Lista Ordenada: ",result)
 
     return result
 
@@ -230,8 +256,8 @@ def insere_tabel(path):
             # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
     for j in range(len(count)):
         for k in range(2):
-            interface2.ui.tableWidget_3.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
-
+            interface2.ui.tableWidget_3.setItem(j, k, QtWidgets.QTableWidgetItem(str(count[j][k])))
+            print("COUNT J K: ",count[j][k])
 
 # noinspection PyTypeChecker
 def main_(path):
@@ -258,6 +284,6 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
     MainWindow.show()
 
-    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/"))
+    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/Área\ de\ Trabalho"))
 
     sys.exit(app.exec_())
