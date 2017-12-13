@@ -37,7 +37,7 @@ def search_in_files(text_box, path):
 
                 count_word_1 = 0
                 count_word_2 = 0
-                count_word_1 += 9999
+                count_word_1 += 9999            # valores altos para serem inseridos sempre no inicio da tabela
                 count_word_2 += 9999
 
                 lista.appendleft(str(f))
