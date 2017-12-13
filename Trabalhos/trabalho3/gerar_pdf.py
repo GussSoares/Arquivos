@@ -8,7 +8,7 @@ print(sys.argv[1], sys.argv[2])
 # 	os.popen("mkdir p{}").format(i)
 
 def teste():
-	v=["Lista_de_Exercícios_de_Estrutura_de_Dados_I", "Lista_de_Exercícios_2_de_Estrutura_de-Dados-I"]
+	v=["Lista_ADS", "Lista_de"]
 	os.popen("mkdir %s" % (sys.argv[1]))
 
 	k = 0

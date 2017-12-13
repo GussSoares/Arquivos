@@ -7,25 +7,6 @@ import interface2
 
 
 # pesquisa o caminho completo desde o path passado por parametro ate achar os arquivos com aquele nome
-def search_directory(text_box, initial_path):
-
-    # text_box = text_box.split(" ")
-    list=[]
-    for path, dirs, files in os.walk(initial_path):
-        for f in files:
-            if text_box.lower() in f.lower():
-                list.append(str(path+f))
-    return list
-
-# pesquisa os arquivos por nome
-def search_files(text_box, initial_path):
-    list=[]
-    for path, dirs, files in os.walk(initial_path):
-        for f in files:
-            if text_box.lower() in f.lower():
-                list.append(str(f))
-    return list
-
 
 def search_in_files(text_box, path):
     string = text_box.split(" ")
@@ -56,8 +37,8 @@ def search_in_files(text_box, path):
 
                 count_word_1 = 0
                 count_word_2 = 0
-                count_word_1 += 999
-                count_word_2 += 999
+                count_word_1 += 9999
+                count_word_2 += 9999
 
                 lista.appendleft(str(f))
                 print(f.split("/")[-1] + "\n\n")
@@ -197,15 +178,15 @@ def search_in_files(text_box, path):
                     lista_contadores_separados[i] = -1
                     lista[i] = "vazio"
 
-        for i in range(len(lista_contadores)):
-            if "vazio" in lista_ordenada_arquivos:
-                lista_ordenada_arquivos.remove("vazio")
 
-            if -1 in lista_ordenada_count:
-                lista_ordenada_count.remove(-1)
+        while "vazio" in lista_ordenada_arquivos:
+            lista_ordenada_arquivos.remove("vazio")
 
-            if -1 in lista_ordenada_count_separado:
-                lista_ordenada_count_separado.remove(-1)
+        while -1 in lista_ordenada_count:
+            lista_ordenada_count.remove(-1)
+
+        while -1 in lista_ordenada_count_separado:
+            lista_ordenada_count_separado.remove(-1)
 
         print("=================================================================")
         print("\n\nlista:", lista)
@@ -222,17 +203,13 @@ def search_in_files(text_box, path):
             for i in range(len(lista_ordenada_count)):
                 if string[0].lower() in lista_ordenada_arquivos[i].lower() and string[1].lower() in lista_ordenada_arquivos[i].lower():
                     lista_ordenada_arquivos[i] = 0
-            for i in range(len(lista_ordenada_count)):
-                if 0 in lista_ordenada_arquivos:
-                    lista_ordenada_arquivos.remove(0)
+            # for i in range(len(lista_ordenada_count)):
+            while 0 in lista_ordenada_arquivos:
+                lista_ordenada_arquivos.remove(0)
 
             for j in range(len(primeiros)):
                 lista_ordenada_arquivos.appendleft(primeiros[j])
 
-
-        else:
-
-            pass
 
         return (lista_ordenada_arquivos, lista_ordenada_count_separado)
 
@@ -252,7 +229,7 @@ def insere_tabel(path):
     # interface2.ui.tableWidget_2.setColumnCount(2)
     for i in range(len(list)):
         # for j in range(2):
-        interface2.ui.tableWidget_2.setItem(i, 0, QtWidgets.QTableWidgetItem(list[i]))
+        interface2.ui.tableWidget_2.setItem(i, 0, QtWidgets.QTableWidgetItem(str(list[i])))
             # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(count[i]))
     for j in range(len(count)):
         for k in range(2):
@@ -267,13 +244,9 @@ def main_(path):
     interface2.ui.setupUi(interface2.MainWindow)
     interface2.MainWindow.show()
 
-    # cria um vetor de palavras
-    word = ui.lineEdit.text().split(" ")
-
     print("SEARCH: ",search_in_files(ui.lineEdit.text(), path))
 
     insere_tabel(path)
-            # interface2.ui.tableWidget_2.setItem(i, j, QtWidgets.QTableWidgetItem(m[i][j]))
 
 
 if __name__ == '__main__':
