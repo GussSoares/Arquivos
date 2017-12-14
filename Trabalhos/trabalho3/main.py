@@ -9,6 +9,9 @@ import interface2
 # pesquisa o caminho completo desde o path passado por parametro ate achar os arquivos com aquele nome
 
 def search_in_files(text_box, path):
+
+    inicio = time.time()
+
     string = text_box.split(" ")
     lista = deque()
     lista_contadores = []
@@ -217,6 +220,8 @@ def search_in_files(text_box, path):
     print("RETORNO 1",result[0])
     print("RETORNO 2", result[1])
 
+    fim = time.time()
+    tempo = fim - inicio
     return result
 
 def insere_tabel(path):
@@ -235,7 +240,6 @@ def insere_tabel(path):
         for k in range(2):
             interface2.ui.tableWidget_3.setItem(j, k, QtWidgets.QTableWidgetItem(str(count[j][k])))
             print("COUNT J K: ",count[j][k])
-
 # noinspection PyTypeChecker
 def main_(path):
     # time.sleep(0.5)
@@ -243,7 +247,6 @@ def main_(path):
     interface2.ui = interface2.Ui_MainWindow()
     interface2.ui.setupUi(interface2.MainWindow)
     interface2.MainWindow.show()
-
     print("SEARCH: ",search_in_files(ui.lineEdit.text(), path))
 
     insere_tabel(path)
