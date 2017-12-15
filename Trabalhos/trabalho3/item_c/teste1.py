@@ -26,6 +26,9 @@ import subprocess, os, time
 #     device.close()
 #     binario.close()
 
+path = "/home/gustavo/GitHub/Arquivos/Trabalhos/"
+word = "lista"
+
 def busca(path):
 
     command = ("find {} -maxdepth 8 -type f -iname \"*.pdf\"").format(path)  # the shell command
@@ -40,24 +43,25 @@ def busca(path):
 
         a = caminho.replace(" ", "\ ")      # formata o caminho para espacamentos
         file = caminho.split("/")[-1]       # nome do arquivo pdf
-        print(caminho)
-        # ler_pdf(caminho)
-        print(file)
+        # print(caminho)
+
+        # print(file)
         os.popen(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
         time.sleep(.5)
 
         with open(str(caminho.replace(".pdf", ".txt"))) as file_text:
+
             palavras = []
-            print("entrou with")
+            # print("entrou with")
             for line in file_text:
                 line = line.split(" ")
                 for word in line:
-                    palavras.append(word.strip("\n"))
+                    palavras.append(word.strip("\n").lower())
         palavras = sorted(set(palavras))
-        print("ordenado: ", palavras)
+        # print("ordenado: ", palavras)
         lista.append((caminho, palavras))
 
-    print("LISTA: ", lista)
+    print("LISTA: ", lista, "\n\n\n")
     return lista
 
 def busca_na_lista(word, list):
@@ -65,13 +69,19 @@ def busca_na_lista(word, list):
     resultado = []
     for i in range(len(list)):
 
-        if word in list[i][0].split("/")[-1]:
-            print(list[i][1])
-            resultado.append(lista[i][1])
+        if word.lower() in list[i][1] or word.lower() in list[i][0].split("/")[-1].lower():
+            # print(list[i][0])
+            resultado.append(list[i][0])
 
     return resultado
 
 
-lista = busca("/home/gustavo/Desktop")
+lista = busca(path)
 
-busca_na_lista("deepin", lista)
+# try:
+for i in range(len(busca_na_lista(word, lista))):
+    print(busca_na_lista(word, lista)[i])
+# except:
+#     print("\"{}\" Not Found".format(word))
+
+
