@@ -2,11 +2,45 @@ import sys, os, time, subprocess
 from functools import partial
 from collections import deque
 
+import io
+from pdfminer.converter import TextConverter
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
+
 from interface1 import *
 import interface2
 
 
 # pesquisa o caminho completo desde o path passado por parametro ate achar os arquivos com aquele nome
+
+
+def ler_pdf(path):
+    imgFontes = PDFResourceManager()
+    binario = io.StringIO()
+    codec = "utf-8"
+
+    device = TextConverter(imgFontes, binario, codec = codec)
+
+    fp = open(path, "rb")
+
+    interpreter = PDFPageInterpreter(imgFontes, device)
+
+    for page in PDFPage.get_pages(fp):
+        interpreter.process_page(page)
+
+    aux = [word.lower() for word in binario.getvalue().split()]
+    aux2 = [aux.count(word) for word in aux]
+    aux3 = []
+
+    for i in range(len(aux)):
+        aux3.append((aux[i], aux2[i]))
+
+    print(set(aux3), "\n\n")
+    fp.close()
+    device.close()
+    binario.close()
+    return set(aux3)
+
 
 def search_in_files(text_box, path):
 
@@ -241,6 +275,13 @@ def insere_tabel(path):
             interface2.ui.tableWidget_3.setItem(j, k, QtWidgets.QTableWidgetItem(str(count[j][k])))
             print("COUNT J K: ",count[j][k])
 # noinspection PyTypeChecker
+
+
+def complete(text, path):
+
+    palavras_pdf = ler_pdf(path)
+
+
 def main_(path):
     # time.sleep(0.5)
     interface2.MainWindow = QtWidgets.QMainWindow()
@@ -252,6 +293,7 @@ def main_(path):
     insere_tabel(path)
 
 
+
 if __name__ == '__main__':
 
     app = QtWidgets.QApplication(sys.argv)
@@ -260,6 +302,6 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
     MainWindow.show()
 
-    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/Área/ de/ Trabalho/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"))
+    ui.pushButton.clicked.connect(partial(main_, "/home/gustavo/Área\ de\ Trabalho/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"))
 
     sys.exit(app.exec_())
