@@ -42,7 +42,7 @@ def ler_pdf(path):
         word = u' '.join(current_word)
         list_word.append(word.lower())
 
-    aux2 = [list_word.count(word) for word in list_word]
+    # aux2 = [list_word.count(word) for word in list_word]
     aux3 = []
 
     for i in range(len(list_word)):
@@ -73,7 +73,7 @@ def busca(path):
 
         lista.append((caminho, ler_pdf(caminho)))
 
-    print("LISTA: ", lista, "\n\n\n")
+    # print("LISTA: ", lista, "\n\n\n")
     return lista                            # lista com o nome do diretorio e as palavras do arquivo
 
 def busca_na_lista(word, list):
@@ -104,7 +104,7 @@ def busca_na_lista(word, list):
 lista = []
 for i in range(len(busca(path))):
     lista.append(busca(path)[i][1])
-print("NOVA: ",lista)                       # lista com as listas das palavras de cada pdf
+# print("NOVA: ",lista)                       # lista com as listas das palavras de cada pdf
 
 
 def counter():
@@ -119,7 +119,7 @@ def counter():
             lista_count.append(result[i][1].count(result[i][1][j]))  # contador de cada palavra
 
             lista_word_direct.append(((result[i][0], result[i][1][j])))  # diretorio do arquivo e palavra
-    print("LISTA REALMENTE:",(lista_word_direct, lista_count))
+    # print("LISTA REALMENTE:",(lista_word_direct, lista_count))
     return (lista_word_direct, lista_count)
 
 def ordenacao(lista):
@@ -158,7 +158,7 @@ def insere_tabela():
     lista_completa = busca_na_lista(ui.lineEdit.text(), lista_pra_busca_lista)
 
 
-    print("LISTA_ORDENADA_FINAL:",lista_completa)
+    # print("LISTA_ORDENADA_FINAL:",lista_completa)
 
     face2.ui.tableWidget_2.setRowCount(len(lista_completa))
     face2.ui.tableWidget_3.setRowCount(len(lista_completa))
@@ -184,8 +184,9 @@ def main_(path):
 
     insere_tabela()
 
-    vindo_da_counter = counter()
-    busca_na_lista(ui.lineEdit.text(), vindo_da_counter)
+    # vindo_da_counter = counter()
+    # busca_na_lista(ui.lineEdit.text(), vindo_da_counter)
+
 if __name__ == '__main__':
 
     import sys

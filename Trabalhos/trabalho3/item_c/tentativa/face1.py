@@ -25,8 +25,9 @@ class Ui_MainWindow(object):
                     pass
                 else:
                     print(word,item[i+1])
+                    list.append(word)
                     list.append(word+" "+item[i+1])
-        model.setStringList(list)
+        model.setStringList(sorted(set(list)))
 
 
     def setupUi(self, MainWindow):
