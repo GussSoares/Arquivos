@@ -1,15 +1,14 @@
 # coding=utf-8
 from threading import Thread
-import subprocess, os, time
+import subprocess, os, time, io
 from functools import partial
-import io
 from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.pdfpage import PDFPage
 
 import face1, face2
 
-path = "/home/gustavo/Área\ de\ Trabalho/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"
+path = "/home/gustavo/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"
 
 def ler_pdf(path):
     imgFontes = PDFResourceManager()
@@ -28,8 +27,6 @@ def ler_pdf(path):
 
     for page in PDFPage.get_pages(fp):
         interpreter.process_page(page)
-
-    # aux = [word.lower() for word in binario.getvalue().split()]
 
     aux = binario.getvalue()
     for pos, doc in enumerate(aux):
@@ -73,23 +70,7 @@ def busca(path):
 
         a = caminho.replace(" ", "\ ")      # formata o caminho para espacamentos
         file = caminho.split("/")[-1]       # nome do arquivo pdf
-        # print(caminho)
 
-        # print(file)
-        # os.popen(("pdftotext {} {}").format(a, a.replace(".pdf", ".txt")))
-        # time.sleep(.5)
-        #
-        # with open(str(caminho.replace(".pdf", ".txt"))) as file_text:
-        #
-        #     palavras = []
-        #     # print("entrou with")
-        #     for line in file_text:
-        #         line = line.split(" ")
-        #         for word in line:
-        #             palavras.append(word.strip("\n").lower())
-        # palavras = sorted(set(palavras))
-        # print("ordenado: ", palavras)
-        # ler_pdf(caminho)
         lista.append((caminho, ler_pdf(caminho)))
 
     print("LISTA: ", lista, "\n\n\n")
@@ -109,16 +90,14 @@ def busca_na_lista(word, list):
         elif digitada[0].lower() in lista[i][1] or digitada[1].lower() in lista[i][1]:
             resultado.append((lista[i][0], lista[i][1], list[1][i]))
 
-        # if word.lower() in list[i][1] or word.lower() in list[i][0].split("/")[-1].lower():
-        #     # print(list[i][0])
-        #
-        #     resultado.append(word.lower())
     for i in range(len(resultado)):
         if resultado[i][1] != digitada[0] and resultado[i][1] != digitada[1]:
             resultado[i] = -1
     while -1 in resultado:
         resultado.remove(-1)
 
+    resultado.sort(key=lambda x: x[2])
+    resultado.reverse()
     print("BUSCA NA LISTA: ", resultado, "\n\n")
     return resultado
 
@@ -178,7 +157,6 @@ def insere_tabela():
 
     lista_completa = busca_na_lista(ui.lineEdit.text(), lista_pra_busca_lista)
 
-    # lista_ordenada = ordenacao(lista_completa)
 
     print("LISTA_ORDENADA_FINAL:",lista_completa)
 
@@ -203,7 +181,6 @@ def main_(path):
     face2.ui = face2.Ui_MainWindow()
     face2.ui.setupUi(face2.MainWindow)
     face2.MainWindow.show()
-    # print("SEARCH: ",search_in_files(ui.lineEdit.text(), path))
 
     insere_tabela()
 
@@ -218,9 +195,6 @@ if __name__ == '__main__':
     ui = face1.Ui_MainWindow()
     ui.setupUi(MainWindow)
 
-    # for i in range(len(busca_na_lista(ui.lineEdit.text(), lista))):
-    #     print(busca_na_lista(ui.lineEdit.text(), lista)[i])
-
     completer = face1.QtWidgets.QCompleter()
     ui.lineEdit.setCompleter(completer)
 
@@ -228,10 +202,7 @@ if __name__ == '__main__':
     completer.setModel(model)
     ui.get_data(model)
 
-    # ui.counter()
-
-    ui.pushButton.clicked.connect(
-        partial(main_, "/home/gustavo/Área\ de\ Trabalho/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"))
+    ui.pushButton.clicked.connect(partial(main_, path))
 
     MainWindow.show()
     sys.exit(app.exec_())

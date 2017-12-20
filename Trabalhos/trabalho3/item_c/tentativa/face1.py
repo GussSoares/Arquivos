@@ -11,7 +11,6 @@ import teste1
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import sys
-path = "/home/gustavo/Área\ de\ Trabalho/GitHub/Arquivos/Trabalhos/trabalho3/item_c/"
 
 class Ui_MainWindow(object):
 
