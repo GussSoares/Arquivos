@@ -81,24 +81,48 @@ def busca_na_lista(word, list):
     resultado = []
     digitada = str(word).split(" ")
     lista = list[0]
-    for i in range(len(lista)):
-        if digitada[0].lower() in lista[i][0].split("/")[-1] or digitada[1].lower() in lista[i][0].split("/")[-1]:
-            resultado.append((lista[i][0], lista[i][1], list[1][i]))
-        # if digitada[0].lower() in list[0][0][i][0].split("/")[-1] or digitada[1].lower() in list[0][0][i][0].split("/")[-1]:
-        #     resultado.append((list[0][0][i][0], list[0][0][i][1], list[1][i]))
-        #
-        elif digitada[0].lower() in lista[i][1] or digitada[1].lower() in lista[i][1]:
-            resultado.append((lista[i][0], lista[i][1], list[1][i]))
 
-    for i in range(len(resultado)):
-        if resultado[i][1] != digitada[0] and resultado[i][1] != digitada[1]:
-            resultado[i] = -1
-    while -1 in resultado:
-        resultado.remove(-1)
+    if len(digitada) > 1:
+        for i in range(len(lista)):
+            if digitada[0].lower() in lista[i][0].split("/")[-1] or digitada[1].lower() in lista[i][0].split("/")[-1]:
+                resultado.append((lista[i][0], lista[i][1], list[1][i]))
+            # if digitada[0].lower() in list[0][0][i][0].split("/")[-1] or digitada[1].lower() in list[0][0][i][0].split("/")[-1]:
+            #     resultado.append((list[0][0][i][0], list[0][0][i][1], list[1][i]))
+            #
+            elif digitada[0].lower() in lista[i][1] or digitada[1].lower() in lista[i][1]:
+                resultado.append((lista[i][0], lista[i][1], list[1][i]))
 
-    resultado.sort(key=lambda x: x[2])
-    resultado.reverse()
-    print("BUSCA NA LISTA: ", resultado, "\n\n")
+        for i in range(len(resultado)):
+            if resultado[i][1] != digitada[0] and resultado[i][1] != digitada[1]:
+                resultado[i] = -1
+        while -1 in resultado:
+            resultado.remove(-1)
+
+        resultado.sort(key=lambda x: x[2])
+        resultado.reverse()
+        print("BUSCA NA LISTA: ", resultado, "\n\n")
+
+    else:
+        for i in range(len(lista)):
+            if digitada[0].lower() in lista[i][0].split("/")[-1]:
+                resultado.append((lista[i][0], lista[i][1], list[1][i]))
+            # if digitada[0].lower() in list[0][0][i][0].split("/")[-1] or digitada[1].lower() in list[0][0][i][0].split("/")[-1]:
+            #     resultado.append((list[0][0][i][0], list[0][0][i][1], list[1][i]))
+            #
+            elif digitada[0].lower() in lista[i][1]:
+                resultado.append((lista[i][0], lista[i][1], list[1][i]))
+
+        for i in range(len(resultado)):
+            if resultado[i][1] != digitada[0]:
+                resultado[i] = -1
+        while -1 in resultado:
+            resultado.remove(-1)
+
+        resultado.sort(key=lambda x: x[2])
+        resultado.reverse()
+        print("BUSCA NA LISTA: ", resultado, "\n\n")
+
+
     return resultado
 
 lista = []
@@ -119,42 +143,42 @@ def counter():
             lista_count.append(result[i][1].count(result[i][1][j]))  # contador de cada palavra
 
             lista_word_direct.append(((result[i][0], result[i][1][j])))  # diretorio do arquivo e palavra
-    # print("LISTA REALMENTE:",(lista_word_direct, lista_count))
+    print("LISTA REALMENTE:",(lista_word_direct, lista_count))
     return (lista_word_direct, lista_count)
 
-def ordenacao(lista):
-
-    # ordenacao
-    count_ord = []
-    word_direct_ord = []
-    lista_count = []
-
-    for i in range(len(lista)):
-        lista_count.append(int(lista[i][2]))
-    print("count:", lista_count)
-    while max(lista_count) != -1:
-        for i in range(len(lista)):
-            if int(lista[i][2]) == max(lista_count):
-                count_ord.append(str(lista_count[i]))
-                word_direct_ord.append(lista[i])
-
-                lista_count[i] = -1
-                lista[i] = -1
-
-    while -1 in count_ord:
-        count_ord.remove(-1)
-    while -1 in word_direct_ord:
-        word_direct_ord.remove(-1)
-
-    print("tupla word_dict count",(word_direct_ord, count_ord))
-    return (word_direct_ord, count_ord)
+# def ordenacao(lista):
+#
+#     # ordenacao
+#     count_ord = []
+#     word_direct_ord = []
+#     lista_count = []
+#
+#     for i in range(len(lista)):
+#         lista_count.append(int(lista[i][2]))
+#     print("count:", lista_count)
+#     while max(lista_count) != -1:
+#         for i in range(len(lista)):
+#             if int(lista[i][2]) == max(lista_count):
+#                 count_ord.append(str(lista_count[i]))
+#                 word_direct_ord.append(lista[i])
+#
+#                 lista_count[i] = -1
+#                 lista[i] = -1
+#
+#     while -1 in count_ord:
+#         count_ord.remove(-1)
+#     while -1 in word_direct_ord:
+#         word_direct_ord.remove(-1)
+#
+#     print("tupla word_dict count",(word_direct_ord, count_ord))
+#     return (word_direct_ord, count_ord)
 
 def insere_tabela():
     list_word = counter()[0]
     list_count = counter()[1]
 
     lista_pra_busca_lista = counter()
-
+    print("COUNTER",counter())
     lista_completa = busca_na_lista(ui.lineEdit.text(), lista_pra_busca_lista)
 
 
